@@ -3,6 +3,10 @@ import { type } from 'os'; // Unused import
 import { styles } from '../../Styles/style'; // Importing styles
 import React, { FC, useRef, useState } from 'react'; // Importing React and related dependencies
 import { VscWorkspaceTrusted } from 'react-icons/vsc'; // Importing an icon component
+import { useActivationMutation } from '@/redux/features/auth/authApi';
+import { useSelector } from 'react-redux';
+import toast from 'react-hot-toast';
+import { useEffect } from 'react';
 
 // Define a custom type for props that this component expects
 type Props = {
@@ -20,6 +24,10 @@ type VerifyNumber = {
 // Create the Verification component as a functional component
 const Verification: FC<Props> = ({ setRoute }) => {
   // Define state variables
+  const { token } = useSelector((state: any) => {
+    return state.auth;
+  });
+  const [activation, { isLoading, isSuccess, error }] = useActivationMutation();
   const [invalidError, setInvalidError] = useState<boolean>(false); // Error state
   const [verifyNumber, setVerifyNumber] = useState<VerifyNumber>({
     0: '',
@@ -27,6 +35,27 @@ const Verification: FC<Props> = ({ setRoute }) => {
     2: '',
     3: '',
   }); // Object to store the verification code
+
+  useEffect(() => {
+    // if (isLoading && !isSuccess) {
+    //   toast.success('please wait...');
+    //   setRoute('Loader');
+    // }
+    if (isSuccess) {
+      setRoute('Login');
+      toast.success('Account activated successfully');
+    }
+    if (error) {
+      if ('data' in error) {
+        const errorData = error as any;
+        toast.error(errorData.data.message);
+        setInvalidError(true);
+      } else {
+        console.log('An error occured:', error);
+      }
+    }
+  }, [isSuccess, error]);
+
   const inputRefs = [
     useRef<HTMLInputElement>(null),
     useRef<HTMLInputElement>(null),
@@ -50,7 +79,16 @@ const Verification: FC<Props> = ({ setRoute }) => {
   };
 
   const verificationHandler = async () => {
-    setInvalidError(true);
+    const verificationNumber = Object.values(verifyNumber).join('');
+
+    if (verificationNumber.length !== 4) {
+      setInvalidError(true);
+      return;
+    }
+    await activation({
+      activation_Token: token,
+      activation_Code: verificationNumber,
+    });
   };
 
   // Render the component's UI

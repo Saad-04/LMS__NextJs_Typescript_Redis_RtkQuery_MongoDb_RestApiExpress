@@ -1,28 +1,31 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  token: '',
-  user: '',
+  token: "",
+  user: "",
+  activationCode: 0
 };
 
 const authSlice = createSlice({
-  name: 'auth',
+  name: "auth",
   initialState,
   reducers: {
-    userRegistration: (state, action: PayloadAction<{ token: string }>) => {
+    userRegistration: (state, action: PayloadAction<{ token: string, activationCode: number }>) => {
       state.token = action.payload.token;
+      state.activationCode = action.payload.activationCode;
     },
-    userLoggedIn: (state, action: PayloadAction<{ accessToken: string; user: string }>) => {
+    userLoggedIn: (state, action: PayloadAction<{ accessToken: string, user: any }>) => {
       state.token = action.payload.accessToken;
       state.user = action.payload.user;
     },
     userLoggedOut: (state) => {
-      state.token = '';
-      state.user = '';
+      state.token = "";
+      state.user = "";
     },
   },
 });
 
-export const { userRegistration, userLoggedIn, userLoggedOut } = authSlice.actions;
+export const { userRegistration, userLoggedIn, userLoggedOut } =
+  authSlice.actions;
 
 export default authSlice.reducer;

@@ -1,31 +1,33 @@
 import { apiSlice } from '../api/apiSlice';
-import { userRegistration } from './authSlice';
+import { userLoggedIn, userRegistration } from './authSlice';
+
 
 type RegistrationResponse = {
-  //these two things come from response in registration api
   message: string;
   activationToken: string;
+  activationCode: number;
 };
+
 
 type RegistrationData = {};
 
 export const authApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
+    // endpoints here
     register: builder.mutation<RegistrationResponse, RegistrationData>({
-      //this data is from req.body
       query: (data) => ({
-        url: 'registerUser',
-        method: 'POST',
-        body: data, //this data is from req.body
-        credentials: 'include' as const,
+        url: "registerUser",
+        method: "POST",
+        body: data,
+        credentials: "include" as const,
       }),
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
-          const result = await queryFulfilled; //this is full response object data {data}
-
+          const result = await queryFulfilled;
           dispatch(
             userRegistration({
-              token: result.data.activationToken, //this come from res.json in register api
+              token: result.data.activationToken,
+              activationCode: result.data.activationCode,
             })
           );
         } catch (error: any) {
@@ -33,17 +35,49 @@ export const authApi = apiSlice.injectEndpoints({
         }
       },
     }),
+
     activation: builder.mutation({
-      query: ({ activation_token, activation_code }) => ({
-        url: 'activate-user',
+      query: ({ activation_Token, activation_Code }) => ({
+        url: 'activateUser',
         method: 'POST',
         body: {
-          activation_token,
-          activation_code,
+          activation_Token,
+          activation_Code,
         },
       }),
     }),
+    loggedIn: builder.mutation({
+      query: ({ email, password }) => ({
+        url: 'loginUser',
+        method: 'POST',
+        body: {
+          email, password
+        },
+        credentials: "include" as const
+      }),
+      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+        try {
+          const result = await queryFulfilled;
+          dispatch(
+            userLoggedIn({
+              accessToken: result.data.accessToken,
+              user: result.data.user,
+            })
+          );
+        } catch (error: any) {
+          console.log(error);
+        }
+      },
+    }),
+    loggedOut: builder.mutation({
+      query: () => ({
+        url: 'logoutUser',
+        method: 'GET',
+
+      }),
+    }),
   }),
-});
+
+})
 /////
-export const { useRegisterMutation, useActivationMutation } = authApi;
+export const { useRegisterMutation, useActivationMutation, useLoggedInMutation, useLoggedOutMutation } = authApi;

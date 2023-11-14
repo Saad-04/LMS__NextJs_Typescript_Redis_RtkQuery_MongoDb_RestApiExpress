@@ -7,6 +7,7 @@ import { HiOutlineMenuAlt3, HiOutlineUserCircle } from 'react-icons/hi';
 import CustomModel from '../utils/CustomModel';
 import Login from './Auth/Login';
 import SignUp from './Auth/SignUp';
+import Loader from './Loader/Loader';
 import Verification from './Auth/Verification';
 type Props = {
   open: boolean;
@@ -149,6 +150,22 @@ const Header: FC<Props> = ({ open, setOpen, activeItem, setRoute, route }) => {
                   route={route}
                   setRoute={setRoute}
                   component={Verification}
+                  activeItem={activeItem} //this come from page.tsx for header item index
+                />
+              </>
+            )}
+          </>
+        )}
+        {route === 'Loader' && (
+          <>
+            {open && (
+              <>
+                <CustomModel
+                  open={open}
+                  setOpen={setOpen}
+                  route={route}
+                  setRoute={setRoute}
+                  component={Loader}
                   activeItem={activeItem} //this come from page.tsx for header item index
                 />
               </>

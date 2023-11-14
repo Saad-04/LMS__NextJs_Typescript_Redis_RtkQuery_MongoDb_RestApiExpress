@@ -4,8 +4,13 @@ import { useFormik } from 'formik';
 import { styles } from '../../Styles/style';
 import { FcGoogle } from 'react-icons/fc';
 import { AiOutlineEye, AiOutlineEyeInvisible, AiFillGithub } from 'react-icons/ai';
+import { useLoggedInMutation } from '@/redux/features/auth/authApi';
+import { useEffect } from 'react';
+import toast from 'react-hot-toast';
+
 type Props = {
   setRoute: (route: string) => void;
+  setOpen: (open: boolean) => void;
 };
 
 const schema = Yup.object().shape({
@@ -13,7 +18,9 @@ const schema = Yup.object().shape({
   password: Yup.string().required('Please enter your password!').min(6),
 });
 
-const Login: FC<Props> = ({ setRoute }) => {
+const Login: FC<Props> = ({ setRoute, setOpen }) => {
+  //
+  const [loggedIn, { error, isSuccess, isLoading, data }] = useLoggedInMutation();
   const [show, setShow] = useState(false); //this for hide and show the password
   // const [login, { isSuccess, error }] = useLoginMutation();
 
@@ -21,9 +28,23 @@ const Login: FC<Props> = ({ setRoute }) => {
     initialValues: { email: '', password: '' },
     validationSchema: schema,
     onSubmit: async ({ email, password }) => {
-      console.log(email, password);
+      loggedIn({ email, password });
     },
   });
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success(data.message || 'login successfully');
+      setOpen(false);
+    }
+    if (error) {
+      if ('data' in error) {
+        const errorData = error as any;
+        toast.error(errorData.data.message);
+      } else {
+        console.log('An error occured:', error);
+      }
+    }
+  }, [isSuccess, error]);
 
   const { errors, touched, values, handleChange, handleSubmit } = formik;
 

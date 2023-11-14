@@ -17,12 +17,13 @@ const schema = Yup.object().shape({
 });
 
 const SignUp: FC<Props> = ({ setRoute }) => {
-  const [show, setShow] = useState(false); //this for hide and show the password
-  const [register, { isSuccess, error, data }] = useRegisterMutation();
+  const [show, setShow] = useState(false);
+  const [register, { data, error, isSuccess }] = useRegisterMutation();
 
   useEffect(() => {
     if (isSuccess) {
-      const message = data?.message || 'regitered successfully';
+      const message = data?.message || 'Registration successful';
+      console.log(data?.activationCode);
       toast.success(message);
       setRoute('Verification');
     }
