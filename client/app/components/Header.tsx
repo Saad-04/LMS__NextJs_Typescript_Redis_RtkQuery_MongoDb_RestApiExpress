@@ -9,6 +9,7 @@ import Login from './Auth/Login';
 import SignUp from './Auth/SignUp';
 import Loader from './Loader/Loader';
 import Verification from './Auth/Verification';
+import { useSelector } from 'react-redux';
 type Props = {
   open: boolean;
   setOpen: (open: boolean) => void; //this for usestate in page.tsx
@@ -20,6 +21,9 @@ type Props = {
 const Header: FC<Props> = ({ open, setOpen, activeItem, setRoute, route }) => {
   const [active, setActive] = useState(false);
   const [openSidebar, setOpenSidebar] = useState(false);
+  const { user } = useSelector((state: any) => {
+    return state.auth; //response object
+  });
 
   if (typeof window !== 'undefined') {
     window.addEventListener('scroll', () => {
@@ -38,6 +42,7 @@ const Header: FC<Props> = ({ open, setOpen, activeItem, setRoute, route }) => {
       }
     }
   };
+  console.log(user);
   return (
     <>
       <div className="w-full relative">
