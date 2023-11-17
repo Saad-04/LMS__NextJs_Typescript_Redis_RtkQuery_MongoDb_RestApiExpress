@@ -2,8 +2,8 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   token: "",
-  user: "",
-  activationCode: 0
+  user: "",//user data
+  activationCode: 0//opt code
 };
 
 const authSlice = createSlice({
@@ -12,7 +12,7 @@ const authSlice = createSlice({
   reducers: {
     userRegistration: (state, action: PayloadAction<{ token: string, activationCode: number }>) => {
       state.token = action.payload.token;
-      state.activationCode = action.payload.activationCode;
+      state.activationCode = action.payload.activationCode;//this is opt code 
     },
     userLoggedIn: (state, action: PayloadAction<{ accessToken: string, user: any }>) => {
       state.token = action.payload.accessToken;

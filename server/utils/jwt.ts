@@ -19,7 +19,7 @@ export const accessTokenOptions: ITokenOptions = {
     maxAge: accessTokenExpires * 60 * 60 * 1000,
     sameSite: 'lax',
     secure: true
-    
+
 }
 export const refreshTokenOptions: ITokenOptions = {
     expires: new Date(Date.now() + refreshTokenExpires * 24 * 60 * 60 * 1000),

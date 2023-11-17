@@ -1,5 +1,7 @@
 'use client';
 import Link from 'next/link';
+import { useEffect } from 'react';
+import Image from 'next/image';
 import React, { FC, useState } from 'react';
 import NavItems from '../utils/NavItems';
 import { ThemeSwitcher } from '../utils/ThemeSwitcher';
@@ -10,6 +12,11 @@ import SignUp from './Auth/SignUp';
 import Loader from './Loader/Loader';
 import Verification from './Auth/Verification';
 import { useSelector } from 'react-redux';
+import { useSession } from 'next-auth/react';
+import avatar from '../../public/assets/avatar.png';
+import { useSocialAuthMutation } from '@/redux/features/auth/authApi';
+import toast from 'react-hot-toast';
+import { useLoadUserQuery } from '@/redux/features/api/apiSlice';
 type Props = {
   open: boolean;
   setOpen: (open: boolean) => void; //this for usestate in page.tsx
@@ -21,9 +28,40 @@ type Props = {
 const Header: FC<Props> = ({ open, setOpen, activeItem, setRoute, route }) => {
   const [active, setActive] = useState(false);
   const [openSidebar, setOpenSidebar] = useState(false);
+  const { data: userData, isLoading, refetch } = useLoadUserQuery(undefined, {});
+  const { data } = useSession();
+  const [socialAuth, { isSuccess, error }] = useSocialAuthMutation();
   const { user } = useSelector((state: any) => {
     return state.auth; //response object
   });
+
+  useEffect(() => {
+    // if(!isLoading){
+    if (!userData) {
+      if (data) {
+        socialAuth({
+          email: data?.user?.email,
+          name: data?.user?.name,
+          avatar: data.user?.image,
+        });
+        if (isSuccess) {
+          toast.success('Login Successfully');
+        }
+        // refetch();
+      }
+    }
+    // if (data === null) {
+
+    // }
+    // if(data === null){
+    //   if(isSuccess){
+    //     toast.success("Login Successfully");
+    //   }
+    // }
+    // if(data === null && !isLoading && !userData){
+    //     setLogout(true);
+    // }
+  }, [data, userData, isSuccess, socialAuth]);
 
   if (typeof window !== 'undefined') {
     window.addEventListener('scroll', () => {
@@ -42,7 +80,8 @@ const Header: FC<Props> = ({ open, setOpen, activeItem, setRoute, route }) => {
       }
     }
   };
-  console.log(user);
+  console.log('web account: ', user);
+  console.log('social account: ', data);
   return (
     <>
       <div className="w-full relative">
@@ -73,11 +112,24 @@ const Header: FC<Props> = ({ open, setOpen, activeItem, setRoute, route }) => {
                     onClick={() => setOpenSidebar(true)} //when click on this then sidebar nav is showed
                   />
                 </div>
-                <HiOutlineUserCircle
-                  size={25}
-                  className="hidden 800px:block cursor-pointer dark:text-white text-black"
-                  onClick={() => setOpen(true)}
-                />
+                {userData ? (
+                  <Link href={'/profile'}>
+                    <Image
+                      src={user?.avatar ? user.avatar : avatar}
+                      alt=""
+                      width={30}
+                      height={30}
+                      className="w-[30px] h-[30px] rounded-full ml-[5px] cursor-pointer"
+                      style={{ border: activeItem === 5 ? '2px solid #37a39a' : 'none' }}
+                    />
+                  </Link>
+                ) : (
+                  <HiOutlineUserCircle
+                    size={25}
+                    className="hidden 800px:block cursor-pointer dark:text-white text-black"
+                    onClick={() => setOpen(true)}
+                  />
+                )}
               </div>
 
               {/* ------------------second box end*/}
