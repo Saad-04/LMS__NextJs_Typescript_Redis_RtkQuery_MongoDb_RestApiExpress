@@ -22,7 +22,7 @@ app.use(
   })
 );
 
-// userRouter
+// userRouter;
 app.use('/api/v1', userRouter, courseRouter, orderRouter, notificationRouter, analyticsRouter, layoutsRouter);
 
 // rout for not found routs
