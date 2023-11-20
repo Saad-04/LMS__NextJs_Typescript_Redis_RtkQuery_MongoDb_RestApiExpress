@@ -1,10 +1,12 @@
+'use client';
+
 import React, { FC, useState } from 'react';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { styles } from '../../Styles/style';
 import { FcGoogle } from 'react-icons/fc';
 import { AiOutlineEye, AiOutlineEyeInvisible, AiFillGithub } from 'react-icons/ai';
-import { useLoggedInMutation } from '@/redux/features/auth/authApi';
+import { useLogInMutation } from '@/redux/features/auth/authApi';
 import { useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { signIn } from 'next-auth/react';
@@ -18,10 +20,11 @@ const schema = Yup.object().shape({
   email: Yup.string().email('Invalid email!').required('Please enter your email!'),
   password: Yup.string().required('Please enter your password!').min(6),
 });
-
+// /
+// main component start from here
 const Login: FC<Props> = ({ setRoute, setOpen }) => {
   //
-  const [loggedIn, { error, isSuccess, isLoading, data }] = useLoggedInMutation();
+  const [loggedIn, { error, isSuccess, isLoading, data }] = useLogInMutation();
   const [show, setShow] = useState(false); //this for hide and show the password
 
   const formik = useFormik({
@@ -44,7 +47,7 @@ const Login: FC<Props> = ({ setRoute, setOpen }) => {
         console.log('An error occured:', error);
       }
     }
-  }, [isSuccess, error, setOpen]);
+  }, [isSuccess, error]);
 
   const { errors, touched, values, handleChange, handleSubmit } = formik;
 

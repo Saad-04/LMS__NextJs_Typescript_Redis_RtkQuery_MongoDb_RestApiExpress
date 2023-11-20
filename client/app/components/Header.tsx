@@ -42,8 +42,11 @@ const Header: FC<Props> = ({ open, setOpen, activeItem, setRoute, route }) => {
   });
 
   useEffect(() => {
+    //before user data is loaded
     if (!isLoading) {
+      //before user data
       if (!userData) {
+        //this is session data
         if (data) {
           socialAuth({
             email: data?.user?.email,

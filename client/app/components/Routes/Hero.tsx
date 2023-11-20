@@ -7,10 +7,14 @@ import { BiSearch } from 'react-icons/bi';
 // import Loader from "../Loader/Loader";
 import { useRouter } from 'next/navigation';
 import HeroImage from './HeroImage';
+import { useSelector } from 'react-redux';
 
 type Props = {};
 
 const Hero: FC<Props> = (props) => {
+  const { user } = useSelector((state: any) => {
+    return state.auth; //response object
+  });
   //   const { data,isLoading } = useGetHeroDataQuery("Banner", {});
   const [search, setSearch] = useState('');
   //   const router = useRouter()
@@ -45,8 +49,9 @@ const Hero: FC<Props> = (props) => {
         {/* second box  */}
 
         <div className="1000px:w-[60%] flex flex-col items-center 1000px:mt-[0px] text-center 1000px:text-left mt-[150px]">
-          <h2 className="dark:text-white text-[#000000c7] text-[30px] px-3 w-full 1000px:text-[70px] font-[600] font-Josefin py-2 1000px:leading-[75px] 1500px:w-[60%] 1100px:w-[78%]">
-            {/* {data?.layout?.banner?.title} */}welcome
+          <h2 className="dark:text-white text-[#000000c7] text-[30px] px-3 w-full 1000px:text-[50px] font-[600] font-Josefin py-2 1000px:leading-[75px] 1500px:w-[60%] 1100px:w-[78%]">
+            {/* {data?.layout?.banner?.title} */}welcome{' '}
+            <span className="dark:text-green-600 1000px:text-[40px] text-[20px] ">{user?.name}</span>
           </h2>
           <br />
           <p className="dark:text-[#edfff4] text-[#000000ac] font-Josefin font-[600] text-[18px] 1500px:!w-[55%] 1100px:!w-[78%]">
