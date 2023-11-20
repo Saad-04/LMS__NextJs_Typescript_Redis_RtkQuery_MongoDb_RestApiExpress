@@ -14,7 +14,7 @@ const authSlice = createSlice({
       state.token = action.payload.token;
       state.activationCode = action.payload.activationCode;//this is opt code 
     },
-    userLoggedIn: (state, action: PayloadAction<{ accessToken: string, user: any }>) => {
+    userLoggedIn: (state, action: PayloadAction<{ accessToken: string, user: string }>) => {
       state.token = action.payload.accessToken;
       state.user = action.payload.user;
     },

@@ -1,6 +1,8 @@
 'use client';
 import Link from 'next/link';
 import { useEffect } from 'react';
+import { redirect } from 'next/navigation';
+
 import Image from 'next/image';
 import React, { FC, useState } from 'react';
 import NavItems from '../utils/NavItems';
@@ -14,9 +16,9 @@ import Verification from './Auth/Verification';
 import { useSelector } from 'react-redux';
 import { useSession } from 'next-auth/react';
 import avatar from '../../public/assets/avatar.png';
-import { useSocialAuthMutation } from '@/redux/features/auth/authApi';
+import { useLogOutQuery, useSocialAuthMutation } from '../../redux/features/auth/authApi';
 import toast from 'react-hot-toast';
-import { useLoadUserQuery } from '@/redux/features/api/apiSlice';
+import { useLoadUserQuery } from '../../redux/features/api/apiSlice';
 type Props = {
   open: boolean;
   setOpen: (open: boolean) => void; //this for usestate in page.tsx
@@ -34,35 +36,33 @@ const Header: FC<Props> = ({ open, setOpen, activeItem, setRoute, route }) => {
   const { user } = useSelector((state: any) => {
     return state.auth; //response object
   });
+  const [logout, setLogout] = useState(false);
+  const {} = useLogOutQuery(undefined, {
+    skip: !logout ? true : false,
+  });
 
   useEffect(() => {
-    // if(!isLoading){
-    if (!userData) {
-      if (data) {
-        socialAuth({
-          email: data?.user?.email,
-          name: data?.user?.name,
-          avatar: data.user?.image,
-        });
-        if (isSuccess) {
-          toast.success('Login Successfully');
+    if (!isLoading) {
+      if (!userData) {
+        if (data) {
+          socialAuth({
+            email: data?.user?.email,
+            name: data?.user?.name,
+            avatar: data.user?.image,
+          });
+          refetch();
         }
-        // refetch();
+      }
+      if (data === null) {
+        if (isSuccess) {
+          toast.success('Login Successfully  ✔');
+        }
+      }
+      if (data === null && !isLoading && !userData) {
+        setLogout(true);
       }
     }
-    // if (data === null) {
-
-    // }
-    // if(data === null){
-    //   if(isSuccess){
-    //     toast.success("Login Successfully");
-    //   }
-    // }
-    // if(data === null && !isLoading && !userData){
-    //     setLogout(true);
-    // }
-  }, [data, userData, isSuccess, socialAuth]);
-
+  }, [data, userData, isLoading]);
   if (typeof window !== 'undefined') {
     window.addEventListener('scroll', () => {
       if (window.scrollY > 85) {
@@ -80,8 +80,7 @@ const Header: FC<Props> = ({ open, setOpen, activeItem, setRoute, route }) => {
       }
     }
   };
-  console.log('web account: ', user);
-  console.log('social account: ', data);
+
   return (
     <>
       <div className="w-full relative">
@@ -112,7 +111,7 @@ const Header: FC<Props> = ({ open, setOpen, activeItem, setRoute, route }) => {
                     onClick={() => setOpenSidebar(true)} //when click on this then sidebar nav is showed
                   />
                 </div>
-                {userData ? (
+                {user ? (
                   <Link href={'/profile'}>
                     <Image
                       src={user?.avatar ? user.avatar : avatar}

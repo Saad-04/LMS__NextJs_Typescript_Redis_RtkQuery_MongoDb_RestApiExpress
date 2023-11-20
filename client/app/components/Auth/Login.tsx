@@ -23,7 +23,6 @@ const Login: FC<Props> = ({ setRoute, setOpen }) => {
   //
   const [loggedIn, { error, isSuccess, isLoading, data }] = useLoggedInMutation();
   const [show, setShow] = useState(false); //this for hide and show the password
-  // const [login, { isSuccess, error }] = useLoginMutation();
 
   const formik = useFormik({
     initialValues: { email: '', password: '' },
@@ -34,7 +33,7 @@ const Login: FC<Props> = ({ setRoute, setOpen }) => {
   });
   useEffect(() => {
     if (isSuccess) {
-      toast.success(data.message || 'login successfully');
+      toast.success('login successfully  ✔');
       setOpen(false);
     }
     if (error) {
@@ -45,7 +44,7 @@ const Login: FC<Props> = ({ setRoute, setOpen }) => {
         console.log('An error occured:', error);
       }
     }
-  }, [isSuccess, error]);
+  }, [isSuccess, error, setOpen]);
 
   const { errors, touched, values, handleChange, handleSubmit } = formik;
 

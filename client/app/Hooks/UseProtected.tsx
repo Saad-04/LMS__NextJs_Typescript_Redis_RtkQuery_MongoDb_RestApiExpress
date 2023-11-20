@@ -7,8 +7,8 @@ interface ProtectedProps {
 }
 
 const Protected: FC<ProtectedProps> = ({ children }) => {
-  const isAuthenticated = UserAuth();
+  const isAuthenticated = UserAuth(); //this return true and false
 
-  return isAuthenticated ? children : redirect('/');
+  return isAuthenticated ? children : redirect('/'); //this children in profile page
 };
 export default Protected;

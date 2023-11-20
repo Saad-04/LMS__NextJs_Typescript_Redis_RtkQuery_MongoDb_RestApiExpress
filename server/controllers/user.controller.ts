@@ -89,7 +89,7 @@ export const activateUser = catchAsyncError(async (req: Request, res: Response, 
   const { email, name, password } = newUser.user;
   const emailExist = await userModel.findOne({ email });
   if (emailExist) {
-    return next(new ErrorHandler('this email already exist!', 400));
+    return next(new ErrorHandler('this email already exist!❌', 400));
   }
   const user = await userModel.create({ email, name, password });
   res.status(201).json({
