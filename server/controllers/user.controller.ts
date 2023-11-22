@@ -15,6 +15,7 @@ require('dotenv').config();
 interface RegisterUser {
   name: string;
   email: string;
+
   password: string;
   avatar?: string;
 }
@@ -27,7 +28,7 @@ export const registerUser = catchAsyncError(async (req: Request, res: Response, 
     }
     const user: RegisterUser = { email, name, password };
     // activation token
-    const activationToken = createActivationToken(user);
+    const activationToken = createActivationToken(user);//this return activation_code and activation_token(cookie) 
     let activationCode = activationToken.activationCode;
     let data = { user: { name: user.name }, activationCode };
     let html = ejs.renderFile(path.join(__dirname, '../mails/activation-mail.ejs'), data);
@@ -361,7 +362,6 @@ export const deleteUserByAdmin = catchAsyncError(async (req: Request, res: Respo
   try {
     const id = req.params.id;
     const user = await userModel.findById(id);
-
     if (!user) {
       next(new ErrorHandler('user not found ', 404));
     } else {
