@@ -124,7 +124,7 @@ const SignUp: FC<Props> = ({ setRoute }) => {
         </div>
 
         <div className="w-full mt-5">
-          <input type="submit" value="Login" className={`${styles.button}`} />
+          <input type="submit" value="Register" className={`${styles.button}`} />
         </div>
 
         <br />

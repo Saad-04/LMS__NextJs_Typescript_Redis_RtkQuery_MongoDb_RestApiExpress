@@ -27,8 +27,8 @@ const Profile: FC<Props> = ({ user }) => {
   });
 
   const logOutHandler = async () => {
-    setLogout(true);
-    // await signOut();
+    setLogout(true); //and this for simple website user account logout
+    await signOut(); //for google and github account logout
   };
 
   if (typeof window !== 'undefined') {
