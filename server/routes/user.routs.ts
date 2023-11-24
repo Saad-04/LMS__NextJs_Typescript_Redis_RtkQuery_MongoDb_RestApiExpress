@@ -9,6 +9,7 @@ import {
   registerUser,
   socialRegister,
   updateAccessToken,
+  updateUserInfo,
   updateUserPassword,
   updateUserPicture,
   updateUserRole,
@@ -25,7 +26,7 @@ userRouter.route("/socialRegister").post(socialRegister);
 // ---------------------------authenticated routes start here----------------------------
 userRouter.route("/logoutUser").get(isAuthenticated, logoutUser);
 userRouter.route("/me").get(isAuthenticated, getUserInfo);
-userRouter.route("/updateUserInfo").put(isAuthenticated, socialRegister);
+userRouter.route("/updateUserInfo").put(isAuthenticated, updateUserInfo);
 userRouter
   .route("/updateUserPassword")
   .put(isAuthenticated, updateUserPassword);

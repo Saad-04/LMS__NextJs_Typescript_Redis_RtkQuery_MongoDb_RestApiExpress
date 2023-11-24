@@ -4,8 +4,10 @@ import React, { FC, useEffect, useState } from 'react';
 import { AiOutlineCamera } from 'react-icons/ai';
 import avatarIcon from '../../../public/assets/avatar.png';
 // import { useEditProfileMutation, useUpdateAvatarMutation } from '@/redux/features/user/userApi';
-import { useLoadUserQuery } from '@/redux/features/api/apiSlice';
+import { useLoadUserQuery } from '../../../redux/features/api/apiSlice';
 import { toast } from 'react-hot-toast';
+import { useUpdateAvatarMutation, useUpdateInfoMutation } from '../../../redux/features/user/userApi';
+import { Nanum_Myeongjo } from 'next/font/google';
 
 type Props = {
   avatar: string | null;
@@ -14,43 +16,47 @@ type Props = {
 
 const ProfileInfo: FC<Props> = ({ avatar, user }) => {
   const [name, setName] = useState(user && user.name);
-  // const [updateAvatar, { isSuccess, error }] = useUpdateAvatarMutation();
+  const [updateAvatar, { isSuccess, error }] = useUpdateAvatarMutation(); //user api for profile image
   // const [editProfile, { isSuccess: success, error: updateError }] = useEditProfileMutation();
-  const [loadUser, setLoadUser] = useState(false);
-  const {} = useLoadUserQuery(undefined, { skip: loadUser ? false : true });
+  // ----------------------------------------------------------------
+  const [loadUser, setLoadUser] = useState(false); //this for calling the load user api
+  const [updateInfo, { isSuccess: infoSuccess, error: infoError }] = useUpdateInfoMutation();
+  const {} = useLoadUserQuery(undefined, { skip: loadUser ? false : true }); //when setLoadUser is true then new data add to user state
 
-  // const imageHandler = async (e: any) => {
-  //   const fileReader = new FileReader();
+  // ----------------------------------------------------------------
+  const imageHandler = async (e: any) => {
+    const fileReader = new FileReader();
 
-  //   fileReader.onload = () => {
-  //     if (fileReader.readyState === 2) {
-  //       const avatar = fileReader.result;
-  //       updateAvatar(avatar);
-  //     }
-  //   };
-  //   fileReader.readAsDataURL(e.target.files[0]);
-  // };
+    fileReader.onload = () => {
+      if (fileReader.readyState === 2) {
+        const avatar = fileReader.result;
+        updateAvatar(avatar);
+      }
+    };
+    fileReader.readAsDataURL(e.target.files[0]);
+  };
 
-  // useEffect(() => {
-  //   if (isSuccess) {
-  //     setLoadUser(true);
-  //   }
-  //   if (error || updateError) {
-  //     console.log(error);
-  //   }
-  //   if (success) {
-  //     toast.success('Profile updated successfully!');
-  //     setLoadUser(true);
-  //   }
-  // }, [isSuccess, error, success, updateError]);
+  // ----------------------------------------------------------------
+  useEffect(() => {
+    if (isSuccess) {
+      setLoadUser(true);
+    }
+    if (error || infoError) {
+      console.log(error);
+    }
+    if (infoSuccess) {
+      toast.success('Profile updated successfully!');
+      setLoadUser(true);
+    }
+  }, [isSuccess, error, infoSuccess, infoError]);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    // if (name !== '') {
-    //   await editProfile({
-    //     name: name,
-    //   });
-    // }
+    if (name !== '') {
+      await updateInfo({
+        name,
+      });
+    }
   };
 
   return (
@@ -58,7 +64,7 @@ const ProfileInfo: FC<Props> = ({ avatar, user }) => {
       <div className="w-full flex justify-center">
         <div className="relative">
           <Image
-            src={user.avatar || avatar ? user.avatar.url || avatar : avatarIcon}
+            src={user.avatar || avatar ? user.avatar.url || avatar : avatarIcon} //if avatar available in user data base then show it --if not then show userIcons
             alt=""
             width={120}
             height={120}
@@ -69,7 +75,7 @@ const ProfileInfo: FC<Props> = ({ avatar, user }) => {
             name=""
             id="avatar"
             className="hidden"
-            // onChange={imageHandler}
+            onChange={imageHandler}
             accept="image/png,image/jpg,image/jpeg,image/webp"
           />
           <label htmlFor="avatar">
