@@ -8,6 +8,7 @@ import { useLoadUserQuery } from '../../../redux/features/api/apiSlice';
 import { toast } from 'react-hot-toast';
 import { useUpdateAvatarMutation, useUpdateInfoMutation } from '../../../redux/features/user/userApi';
 import { Nanum_Myeongjo } from 'next/font/google';
+import { off } from 'process';
 
 type Props = {
   avatar: string | null;
@@ -16,7 +17,7 @@ type Props = {
 
 const ProfileInfo: FC<Props> = ({ avatar, user }) => {
   const [name, setName] = useState(user && user.name);
-  const [updateAvatar, { isSuccess, error }] = useUpdateAvatarMutation(); //user api for profile image
+  const [updateAvatar, { isSuccess, error, isLoading }] = useUpdateAvatarMutation(); //user api for profile image
   // const [editProfile, { isSuccess: success, error: updateError }] = useEditProfileMutation();
   // ----------------------------------------------------------------
   const [loadUser, setLoadUser] = useState(false); //this for calling the load user api
@@ -38,17 +39,40 @@ const ProfileInfo: FC<Props> = ({ avatar, user }) => {
 
   // ----------------------------------------------------------------
   useEffect(() => {
+    if (!isSuccess) {
+      if (isLoading) {
+        toast.loading('changing photo wait...');
+      }
+    }
     if (isSuccess) {
+      toast.success('Profile image updated successfully!');
       setLoadUser(true);
     }
     if (error || infoError) {
-      console.log(error);
+      console.error(error || infoError); // Changed console.log to console.error
     }
     if (infoSuccess) {
-      toast.success('Profile updated successfully!');
+      toast.success('Profile info updated successfully!');
       setLoadUser(true);
     }
-  }, [isSuccess, error, infoSuccess, infoError]);
+  }, [isSuccess, error, infoSuccess, infoError, isLoading]);
+  // useEffect(() => {
+  //   if (isLoading) {
+  //     toast.loading('changing photo wait...');
+  //   }
+  //   if (isSuccess) {
+  //     toast.success('Profile image updated successfully!');
+
+  //     setLoadUser(true);
+  //   }
+  //   if (error || infoError) {
+  //     console.log(error);
+  //   }
+  //   if (infoSuccess) {
+  //     toast.success('Profile info updated successfully!');
+  //     setLoadUser(true);
+  //   }
+  // }, [isSuccess, error, infoSuccess, infoError, isLoading]);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();

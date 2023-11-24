@@ -5,6 +5,7 @@ import { signOut } from 'next-auth/react';
 // import ProfileInfo from './ProfileInfo';
 import ChangePassword from './ChangePassword';
 // import CourseCard from '../Course/CourseCard';
+import { redirect } from 'next/navigation';
 import ProfileOptions from './ProfileOptions';
 import ProfileInfo from './ProfileInfo';
 import CourseCard from '../Course/CourseCard';
@@ -29,6 +30,7 @@ const Profile: FC<Props> = ({ user }) => {
   const logOutHandler = async () => {
     setLogout(true); //and this for simple website user account logout
     await signOut(); //for google and github account logout
+    redirect('/');
   };
 
   if (typeof window !== 'undefined') {

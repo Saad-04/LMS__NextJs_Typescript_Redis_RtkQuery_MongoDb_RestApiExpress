@@ -42,7 +42,7 @@ input::-webkit-inner-spin-button {
 }
 
 /* Firefox */
-input[type="number"] {
+input[type='number'] {
   -moz-appearance: textfield;
 }
 body {
@@ -61,9 +61,9 @@ body {
   text-fill-color: transparent;
 }
 
-
 @keyframes changeBackgroundColor {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 1;
   }
   16.67% {

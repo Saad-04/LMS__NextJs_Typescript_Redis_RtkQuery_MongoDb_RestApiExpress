@@ -2,6 +2,7 @@ import { useUpdatePasswordMutation } from '@/redux/features/user/userApi';
 import { styles } from '../../../app/Styles/style';
 import React, { FC, useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
+import { AiOutlineEye, AiOutlineEyeInvisible, AiFillGithub } from 'react-icons/ai';
 
 type Props = {};
 
@@ -10,6 +11,7 @@ const ChangePassword: FC<Props> = (props) => {
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [updatePassword, { isSuccess, error }] = useUpdatePasswordMutation();
+  const [show, setShow] = useState(false); //this for hide and show the password
 
   const passwordChangeHandler = async (e: any) => {
     e.preventDefault();
@@ -39,15 +41,39 @@ const ChangePassword: FC<Props> = (props) => {
       </h1>
       <div className="w-full">
         <form aria-required onSubmit={passwordChangeHandler} className="flex flex-col items-center">
-          <div className=" w-[100%] 800px:w-[60%] mt-5">
+          <div className="relative w-[100%] 800px:w-[60%] mt-5">
+            {/* <div className="w-full mt-5 relative mb-1"> */}
             <label className="block pb-2 text-black dark:text-[#fff]">Enter your old password</label>
-            <input
+            {/* <input
               type="password"
               className={`${styles.input}border border-gray-500 dark:border-white !w-[95%] mb-4 800px:mb-0 text-black dark:text-[#fff]`}
               required
               value={oldPassword}
               onChange={(e) => setOldPassword(e.target.value)}
+            /> */}
+            <input
+              type={!show ? 'password' : 'text'}
+              name="password"
+              value={oldPassword}
+              onChange={(e) => setOldPassword(e.target.value)}
+              id="password"
+              required
+              placeholder="Enter old password"
+              className={`${styles.input}border border-gray-500 dark:border-white !w-[95%] mb-4 800px:mb-0 text-black dark:text-[#fff]`}
             />
+            {!show ? (
+              <AiOutlineEyeInvisible
+                className="absolute bottom-3 dark:text-white right-2 z-1 cursor-pointer"
+                size={20}
+                onClick={() => setShow(true)}
+              />
+            ) : (
+              <AiOutlineEye
+                className="absolute bottom-3 dark:text-white right-2 z-1 cursor-pointer"
+                size={20}
+                onClick={() => setShow(false)}
+              />
+            )}
           </div>
           <div className=" w-[100%] 800px:w-[60%] mt-2">
             <label className="block pb-2 text-black dark:text-[#fff]">Enter your new password</label>

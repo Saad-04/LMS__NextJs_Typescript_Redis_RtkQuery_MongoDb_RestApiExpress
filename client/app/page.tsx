@@ -4,7 +4,7 @@ import Header from './components/Header';
 import Heading from './utils/Heading';
 import Hero from './components/Routes/Hero';
 
-interface Props {};
+interface Props {}
 
 const Page: FC<Props> = (props) => {
   const [open, setOpen] = useState(false);
