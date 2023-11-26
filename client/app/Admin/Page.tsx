@@ -17,10 +17,12 @@ const page = (props: Props) => {
           keywords="Programming,MERN,Redux,Machine Learning"
         />
         <div className="flex min-h-screen">
-          <div className="1500px:w-[16%] w-1/5">
+          <div className="1500px:w-[10%] w-1/6">
             <AdminSidebar />
           </div>
-          <div className="w-[85%]">{/* <DashboardHero isDashboard={true} /> */}</div>
+          <div className="w-[85%]">
+            <DashboardHero isDashboard={true} />
+          </div>
         </div>
       </AdminProtected>
     </div>
