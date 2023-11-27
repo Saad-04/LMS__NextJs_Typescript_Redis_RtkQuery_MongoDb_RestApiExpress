@@ -13,10 +13,11 @@ type Props = {
 };
 
 const CourseData: FC<Props> = ({ benefits, setBenefits, prerequisites, setPrerequisites, active, setActive }) => {
+  // when user start typing in input taq
   const handleBenefitChange = (index: number, value: any) => {
-    const updatedBenefits = [...benefits];
-    updatedBenefits[index].title = value;
-    setBenefits(updatedBenefits);
+    const updatedBenefits = [...benefits]; //preview full array
+    updatedBenefits[index].title = value; //this line find find input taq using index like benefits[0],benefits[2]
+    setBenefits(updatedBenefits); //here we update the benefits array
   };
 
   const handleAddBenefit = () => {
@@ -61,7 +62,7 @@ const CourseData: FC<Props> = ({ benefits, setBenefits, prerequisites, setPrereq
             required
             className={`${styles.input} my-2`}
             value={benefit.title}
-            onChange={(e) => handleBenefitChange(index, e.target.value)}
+            onChange={(e) => handleBenefitChange(index, e.target.value)} //every input have their own index and value
           />
         ))}
         <AiOutlinePlusCircle

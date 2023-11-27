@@ -33,7 +33,8 @@ const CreateCourse = (props: Props) => {
   //   }
   // }, [isSuccess, error]);
 
-  const [active, setActive] = useState(0);
+  const [active, setActive] = useState(0); //for next page
+  //this for first section 0
   const [courseInfo, setCourseInfo] = useState({
     name: '',
     description: '',
@@ -45,8 +46,11 @@ const CreateCourse = (props: Props) => {
     demoUrl: '',
     thumbnail: '',
   });
+  //this for second section 1
   const [benefits, setBenefits] = useState([{ title: '' }]);
   const [prerequisites, setPrerequisites] = useState([{ title: '' }]);
+
+  //this for three section 2
   const [courseContentData, setCourseContentData] = useState([
     {
       videoUrl: '',
@@ -63,7 +67,7 @@ const CreateCourse = (props: Props) => {
       suggestion: '',
     },
   ]);
-
+  // this for last section for preview course which admin going to create
   const [courseData, setCourseData] = useState({});
 
   const handleSubmit = async () => {

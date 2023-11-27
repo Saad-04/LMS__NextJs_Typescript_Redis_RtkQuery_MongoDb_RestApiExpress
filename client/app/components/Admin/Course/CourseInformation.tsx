@@ -12,7 +12,10 @@ type Props = {
 const CourseInformation: FC<Props> = ({ courseInfo, setCourseInfo, active, setActive }) => {
   const [dragging, setDragging] = useState(false); //this for draging the image
   // const { data } = useGetHeroDataQuery('Categories', {});
-  const [categories, setCategories] = useState(['machine Learning', 'web programming']);
+  const [categories, setCategories] = useState([
+    { title: 'machine Learning', _id: 0 },
+    { title: 'web programming', _id: 0 },
+  ]);
 
   // useEffect(() => {
   //   if (data) {
@@ -20,6 +23,7 @@ const CourseInformation: FC<Props> = ({ courseInfo, setCourseInfo, active, setAc
   //   }
   // }, [data]);
 
+  //this call on end when click on next page
   const handleSubmit = (e: any) => {
     e.preventDefault();
     setActive(active + 1);
@@ -217,13 +221,14 @@ const CourseInformation: FC<Props> = ({ courseInfo, setCourseInfo, active, setAc
             className={`w-full min-h-[10vh] dark:border-white border-[#00000026] p-3 border flex items-center justify-center ${
               dragging ? 'bg-blue-500' : 'bg-transparent'
             }`}
-            onDragOver={handleDragOver}
-            onDragLeave={handleDragLeave}
+            onDragOver={handleDragOver} //this return true
+            onDragLeave={handleDragLeave} //this return false
+            //this return false
             onDrop={handleDrop}>
             {courseInfo.thumbnail ? (
-              <img src={courseInfo.thumbnail} alt="" className="max-h-full w-full object-cover" />
+              <img src={courseInfo.thumbnail} alt="thumbnail" className="max-h-full w-full object-cover" />
             ) : (
-              <span className="text-black dark:text-white">Drag and drop your thumbnail here or click to browse</span>
+              <span className="text-black dark:text-white">Drag and drop your thumbnail </span>
             )}
           </label>
         </div>
