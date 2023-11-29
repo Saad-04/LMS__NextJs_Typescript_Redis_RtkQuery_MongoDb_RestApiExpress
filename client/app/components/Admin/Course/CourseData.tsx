@@ -15,21 +15,23 @@ type Props = {
 const CourseData: FC<Props> = ({ benefits, setBenefits, prerequisites, setPrerequisites, active, setActive }) => {
   // when user start typing in input taq
   const handleBenefitChange = (index: number, value: any) => {
-    const updatedBenefits = [...benefits]; //preview full array
-    updatedBenefits[index].title = value; //this line find find input taq using index like benefits[0],benefits[2]
+    const updatedBenefits = [...benefits]; //store full array data in variadble
+    updatedBenefits[index].title = value; //this line  find input taq using index like benefits[0],benefits[2]
     setBenefits(updatedBenefits); //here we update the benefits array
   };
 
+  // this fucntion add more inputs
   const handleAddBenefit = () => {
     setBenefits([...benefits, { title: '' }]);
   };
 
   const handlePrerequisitesChange = (index: number, value: any) => {
-    const updatedPrerequisites = [...prerequisites];
-    updatedPrerequisites[index].title = value;
-    setPrerequisites(updatedPrerequisites);
+    const updatedPrerequisites = [...prerequisites]; //store full array data in variadble
+    updatedPrerequisites[index].title = value; //this line  find input taq using index like benefits[0],benefits[2]
+    setPrerequisites(updatedPrerequisites); //here we update the benefits array
   };
 
+  // this fucntion add more inputs
   const handleAddPrerequisites = () => {
     setPrerequisites([...prerequisites, { title: '' }]);
   };
@@ -39,6 +41,7 @@ const CourseData: FC<Props> = ({ benefits, setBenefits, prerequisites, setPrereq
   };
 
   const handleOptions = () => {
+    // first we check the last input tag have value or not with benefits[benefits.length - 1] this return the last item of array
     if (benefits[benefits.length - 1]?.title !== '' && prerequisites[prerequisites.length - 1]?.title !== '') {
       setActive(active + 1);
     } else {

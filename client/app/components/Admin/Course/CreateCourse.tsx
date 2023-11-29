@@ -51,6 +51,7 @@ const CreateCourse = (props: Props) => {
   const [prerequisites, setPrerequisites] = useState([{ title: '' }]);
 
   //this for three section 2
+  //this section only for who buy the course
   const [courseContentData, setCourseContentData] = useState([
     {
       videoUrl: '',

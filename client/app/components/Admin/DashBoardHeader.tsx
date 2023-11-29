@@ -54,7 +54,7 @@ const DashboardHeader: FC<Props> = ({ open, setOpen }) => {
   };
 
   return (
-    <div className="w-full flex items-center bg-[#029e88c9] dark:bg-[#1f2940] justify-end p-6 pb-0 fixed top-0 right-0 z-[9999999]">
+    <div className="w-full flex items-center bg-[#029e88c9] dark:bg-[#1f2940] justify-end p-6 pb-0 fixed top-0 right-0 z-[99]">
       <ThemeSwitcher />
       <div className="relative cursor-pointer m-2" onClick={() => setOpen(!open)}>
         <IoMdNotificationsOutline className="text-2xl cursor-pointer dark:text-white text-black" />
@@ -63,7 +63,7 @@ const DashboardHeader: FC<Props> = ({ open, setOpen }) => {
         </span>
       </div>
       {open && (
-        <div className="w-[350px] h-[60vh] overflow-y-scroll py-3 px-2 border border-[#ffffff0c] dark:bg-[#121212] bg-[#fff] shadow-xl absolute top-16 z-[1000000000]  rounded z-50 ">
+        <div className="w-[300px] 800px:w-[350px] h-[60vh] overflow-y-scroll py-3 px-2 border border-[#ffffff0c] dark:bg-[#121212] bg-[#fff] shadow-xl absolute top-16 z-[101]  rounded ">
           <CancelIcon
             className="dark:text-white cursor-pointer"
             onClick={() => {
@@ -78,15 +78,15 @@ const DashboardHeader: FC<Props> = ({ open, setOpen }) => {
             // key={index}
           >
             <div className="w-full flex items-center justify-between p-2">
-              <p className="text-black dark:text-white">{/* {item.title} */}saad ali</p>
+              <p className="text-black dark:text-yellow-500">{/* {item.title} */}saad ali</p>
               <p
-                className="text-black text-sm dark:text-white cursor-pointer"
+                className="text-black  text-[12px] dark:text-white cursor-pointer"
                 // onClick={() => handleNotificationStatusChange(item._id)}
               >
                 Mark as read
               </p>
             </div>
-            <p className=" font-Poppins  px-2 text-xs text-black dark:text-white">
+            <p className=" font-Poppins  px-2 text-[10px] 800px:text-xs text-black dark:text-white">
               Compiled /api/auth/...nextauth in 940ms 1119 modules 957590390735-hg24jj3.apps.googleuse
               {/* {item.message} */}
             </p>

@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import CoursePlayer from '../../../utils/CoursePlayer';
+// import CoursePlayer from '../../../utils/CoursePlayer';
 import { styles } from '../../../../app/Styles/style';
 // import Ratings from '../../../../app/utils/Ratings';
 import { IoCheckmarkDoneOutline } from 'react-icons/io5';
@@ -29,7 +29,7 @@ const CoursePreview: FC<Props> = ({ courseData, handleCourseCreate, setActive, a
     <div className="w-[90%] m-auto py-5 mb-5 text-white">
       <div className="w-full relative">
         <div className="w-full mt-10">
-          <CoursePlayer videoUrl={courseData?.demoUrl} title={courseData?.title} />
+          {/* <CoursePlayer videoUrl={courseData?.demoUrl} title={courseData?.title} /> */}
         </div>
         <div className="flex items-center">
           <h1 className="pt-5 text-[25px]">{courseData?.price === 0 ? 'Free' : courseData?.price + '$'}</h1>

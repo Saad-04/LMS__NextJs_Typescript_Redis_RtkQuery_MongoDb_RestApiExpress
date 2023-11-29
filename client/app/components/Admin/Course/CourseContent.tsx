@@ -151,7 +151,6 @@ const CourseContent: FC<Props> = ({
                     <br />
                   </>
                 )}
-
                 <div className="flex w-full items-center justify-between my-0">
                   {isCollapsed[index] ? (
                     <>
