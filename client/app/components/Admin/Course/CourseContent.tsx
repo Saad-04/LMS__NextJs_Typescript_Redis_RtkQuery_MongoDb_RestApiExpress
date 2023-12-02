@@ -4,6 +4,8 @@ import { toast } from 'react-hot-toast';
 import { AiOutlineDelete, AiOutlinePlusCircle } from 'react-icons/ai';
 import { BsLink45Deg, BsPencil } from 'react-icons/bs';
 import { MdOutlineKeyboardArrowDown } from 'react-icons/md';
+import NexPreButton from './Buttons/NexPreButton';
+import { InputName } from './Buttons/Inputs';
 
 type Props = {
   active: number;
@@ -45,7 +47,7 @@ const CourseContent: FC<Props> = ({
     updatedData[index].links.push({ title: '', url: '' });
     setCourseContentData(updatedData);
   };
-
+  // main function start from here
   const newContentHandler = (item: any) => {
     if (
       item.title === '' ||
@@ -80,14 +82,14 @@ const CourseContent: FC<Props> = ({
     }
   };
 
+  const data =
+    courseContentData[courseContentData.length - 1].title === '' ||
+    courseContentData[courseContentData.length - 1].description === '' ||
+    courseContentData[courseContentData.length - 1].videoUrl === '' ||
+    courseContentData[courseContentData.length - 1].links[0].title === '' ||
+    courseContentData[courseContentData.length - 1].links[0].url === '';
   const addNewSection = () => {
-    if (
-      courseContentData[courseContentData.length - 1].title === '' ||
-      courseContentData[courseContentData.length - 1].description === '' ||
-      courseContentData[courseContentData.length - 1].videoUrl === '' ||
-      courseContentData[courseContentData.length - 1].links[0].title === '' ||
-      courseContentData[courseContentData.length - 1].links[0].url === ''
-    ) {
+    if (data) {
       toast.error('Please fill all the fields first!');
     } else {
       setActiveSection(activeSection + 1);
@@ -108,13 +110,7 @@ const CourseContent: FC<Props> = ({
   };
 
   const handleOptions = () => {
-    if (
-      courseContentData[courseContentData.length - 1].title === '' ||
-      courseContentData[courseContentData.length - 1].description === '' ||
-      courseContentData[courseContentData.length - 1].videoUrl === '' ||
-      courseContentData[courseContentData.length - 1].links[0].title === '' ||
-      courseContentData[courseContentData.length - 1].links[0].url === ''
-    ) {
+    if (data) {
       toast.error("section can't be empty!");
     } else {
       setActive(active + 1);
@@ -153,15 +149,9 @@ const CourseContent: FC<Props> = ({
                 )}
                 <div className="flex w-full items-center justify-between my-0">
                   {isCollapsed[index] ? (
-                    <>
-                      {item.title ? (
-                        <p className="font-Poppins dark:text-white text-black">
-                          {index + 1}. {item.title}
-                        </p>
-                      ) : (
-                        <></>
-                      )}
-                    </>
+                    <p className="font-Poppins dark:text-white text-black">
+                      {index + 1}. {item.title}
+                    </p>
                   ) : (
                     <div></div>
                   )}
@@ -196,7 +186,7 @@ const CourseContent: FC<Props> = ({
                       <label className={styles.label}>Video Title</label>
                       <input
                         type="text"
-                        placeholder="Project Plan..."
+                        placeholder="title"
                         className={`${styles.input}`}
                         value={item.title}
                         onChange={(e) => {
@@ -210,7 +200,7 @@ const CourseContent: FC<Props> = ({
                       <label className={styles.label}>Video Url</label>
                       <input
                         type="text"
-                        placeholder="sdder"
+                        placeholder="url"
                         className={`${styles.input}`}
                         value={item.videoUrl}
                         onChange={(e) => {
@@ -224,7 +214,7 @@ const CourseContent: FC<Props> = ({
                       <label className={styles.label}>Video Length (in minutes)</label>
                       <input
                         type="number"
-                        placeholder="20"
+                        placeholder="video length in number 12"
                         className={`${styles.input}`}
                         value={item.videoLength}
                         onChange={(e) => {
@@ -240,7 +230,7 @@ const CourseContent: FC<Props> = ({
                       <textarea
                         rows={8}
                         cols={30}
-                        placeholder="sdder"
+                        placeholder="description"
                         className={`${styles.input} !h-min py-2`}
                         value={item.description}
                         onChange={(e) => {
@@ -321,16 +311,9 @@ const CourseContent: FC<Props> = ({
       </form>
       <br />
       <div className="w-full flex items-center justify-between">
-        <div
-          className="w-full 800px:w-[180px] flex items-center justify-center h-[40px] bg-[#37a39a] text-center text-[#fff] rounded mt-8 cursor-pointer"
-          onClick={() => prevButton()}>
-          Prev
-        </div>
-        <div
-          className="w-full 800px:w-[180px] flex items-center justify-center h-[40px] bg-[#37a39a] text-center text-[#fff] rounded mt-8 cursor-pointer"
-          onClick={() => handleOptions()}>
-          Next
-        </div>
+        {/*   import from ./Buttons/NexPreButton  */}
+        <NexPreButton handleOptions={prevButton} text="pre" />
+        <NexPreButton handleOptions={handleOptions} text="Next " />
       </div>
       <br />
       <br />

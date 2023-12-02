@@ -159,7 +159,7 @@ const CourseInformation: FC<Props> = ({ courseInfo, setCourseInfo, active, setAc
             />
           </div>
           <div className="800px:w-[45%]">
-            <label className={`text-[14px] 800px:text-[16px] font-Poppins text-black dark:text-white w-[50%]`}>
+            <label className={`text-[14px] 800px:text-[16px]  font-Poppins text-black dark:text-white w-[50%]`}>
               Course Categories
             </label>
             <select
