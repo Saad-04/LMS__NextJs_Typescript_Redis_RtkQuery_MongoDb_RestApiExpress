@@ -20,7 +20,7 @@ const CourseContent: FC<Props> = ({
   setCourseContentData,
   active,
   setActive,
-  handleSubmit: handlleCourseSubmit,
+  handleSubmit: handlleCourseSubmit
 }) => {
   const [isCollapsed, setIsCollapsed] = useState(Array(courseContentData.length).fill(false));
 
