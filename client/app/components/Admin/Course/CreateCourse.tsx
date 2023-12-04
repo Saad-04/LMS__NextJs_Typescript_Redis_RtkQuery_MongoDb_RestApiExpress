@@ -110,9 +110,11 @@ const CreateCourse = (props: Props) => {
       courseData: formattedCourseContentData,
     };
     setCourseData(data);
+    console.log(courseData);
   };
 
   const handleCourseCreate = async (e: any) => {
+    console.log(courseData);
     // const data = courseData;
     // if (!isLoading) {
     //   await createCourse(data);
