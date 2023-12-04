@@ -8,6 +8,7 @@ import {
   createCourse,
   deleteCourseByAdmin,
   editCourse,
+  generateVideoUrl,
   getAdminAllCourses,
   getAllCourse,
   getPurchasedCourse,
@@ -32,6 +33,9 @@ courseRouter.route("/getAllCourse").get(getAllCourse);
 courseRouter
   .route("/likeCourseContent/:id")
   .put(isAuthenticated, likeCourseContent);
+courseRouter
+  .route("/generateVideoUrl")
+  .post(generateVideoUrl);
 // courseRouter
 //   .route("/addCourseToWishList")
 //   .post(isAuthenticated, addCourseToWishList);

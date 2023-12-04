@@ -14,6 +14,7 @@ import ejs from "ejs";
 import path from "path";
 import NotificationModel from "../models/notificaton.model";
 import userModel from "../models/user.models";
+import axios from "axios";
 // only admin can create course
 export const createCourse = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -596,3 +597,31 @@ export const deleteCourseByAdmin = catchAsyncError(
     }
   }
 );
+
+
+
+// generate video url
+export const generateVideoUrl = catchAsyncError
+async (req: Request, res: Response, next: NextFunction) => {
+  interface Props {
+    videoId: string
+  }
+  try {
+    const { videoId } = req.body as Props;
+    const response = await axios.post(
+      `https://dev.vdocipher.com/api/videos/${videoId}/otp`,
+      { ttl: 300 },
+      {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: ` Apisecret ${process.env.API_SECRET_KEY}`,
+        },
+      }
+    )
+    res.json(response.data);
+  } catch (error: any) {
+    return next(new ErrorHandler(error.message, 400));
+
+  }
+}
