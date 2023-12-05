@@ -622,6 +622,6 @@ async (req: Request, res: Response, next: NextFunction) => {
     res.json(response.data);
   } catch (error: any) {
     return next(new ErrorHandler(error.message, 400));
-
+    // 
   }
 }
