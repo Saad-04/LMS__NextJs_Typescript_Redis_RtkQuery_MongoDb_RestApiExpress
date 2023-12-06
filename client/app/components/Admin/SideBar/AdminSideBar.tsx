@@ -188,7 +188,7 @@ const Sidebar = () => {
               setSelected={setSelected}
             />
             <Item
-              title="Live Courses"
+              title="All Courses"
               to="/admin/courses"
               icon={<OndemandVideoIcon />}
               selected={selected}
