@@ -30,7 +30,7 @@ export interface ICourseData extends Document {
   links: ILink[];
   suggestion: string;
   questions: IComment[];
-  likes: Iuser[];
+  likes?: Iuser[];
 }
 
 export interface ICourse extends Document {

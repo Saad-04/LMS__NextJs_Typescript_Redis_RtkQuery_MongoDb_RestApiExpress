@@ -13,25 +13,25 @@ import CourseOptions from './CourseOptions';
 import CourseData from './CourseData';
 import CourseContent from './CourseContent';
 import CoursePreview from './CoursePreview';
+import { useCreateCourseMutation } from '@/redux/features/courses/courseApi';
 
 type Props = {};
 
 const CreateCourse = (props: Props) => {
-  // const [createCourse, { isLoading, isSuccess, error }] =
-  //   useCreateCourseMutation();
+  const [createCourse, { isLoading, isSuccess, error }] = useCreateCourseMutation();
 
-  // useEffect(() => {
-  //   if (isSuccess) {
-  //     toast.success("Course created successfully");
-  //     redirect("/admin/courses");
-  //   }
-  //   if (error) {
-  //     if ("data" in error) {
-  //       const errorMessage = error as any;
-  //       toast.error(errorMessage.data.message);
-  //     }
-  //   }
-  // }, [isSuccess, error]);
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success('Course created successfully');
+      redirect('/admin/courses');
+    }
+    if (error) {
+      if ('data' in error) {
+        const errorMessage = error as any;
+        toast.error(errorMessage.data.message);
+      }
+    }
+  }, [isSuccess, error]);
 
   const [active, setActive] = useState(0); //for next page
   //this for first section 0
@@ -113,10 +113,10 @@ const CreateCourse = (props: Props) => {
   };
 
   const handleCourseCreate = async (e: any) => {
-    // const data = courseData;
-    // if (!isLoading) {
-    //   await createCourse(data);
-    // }
+    const data = courseData;
+    if (!isLoading) {
+      await createCourse(data);
+    }
   };
 
   return (
