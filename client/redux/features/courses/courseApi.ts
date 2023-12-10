@@ -10,23 +10,23 @@ export const coursesApi = apiSlice.injectEndpoints({
         credentials: "include" as const,
       }),
     }),
-    getAllCourses: builder.query({
+    getAdminAllCourses: builder.query({
       query: () => ({
-        url: "getAllCourse",
+        url: "get-admin-allcourses",
         method: "GET",
         credentials: "include" as const,
       }),
     }),
     deleteCourse: builder.mutation({
       query: (id) => ({
-        url: `delete-course/${id}`,
+        url: `deleteCourseByAdmin/${id}`,
         method: "DELETE",
         credentials: "include" as const,
       }),
     }),
     editCourse: builder.mutation({
       query: ({ id, data }) => ({
-        url: `edit-course/${id}`,
+        url: `updateCourse/${id}`,
         method: "PUT",
         body: data,
         credentials: "include" as const,
@@ -104,7 +104,7 @@ export const coursesApi = apiSlice.injectEndpoints({
 
 export const {
   useCreateCourseMutation,
-  useGetAllCoursesQuery,
+  useGetAdminAllCoursesQuery,
   useDeleteCourseMutation,
   useEditCourseMutation,
   useGetUsersAllCoursesQuery,

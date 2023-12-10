@@ -13,7 +13,7 @@ import {
   getAllCourse,
   getPurchasedCourse,
   getSingleCourse,
-  likeCourseContent,
+  // likeCourseContent,
 } from "../controllers/course.controller";
 import { authorizedRole, isAuthenticated } from "../middleware/auth";
 
@@ -30,9 +30,9 @@ courseRouter
   .put(isAuthenticated, answerReplyOnVideoQuestion);
 courseRouter.route("/getSingleCourse/:id").get(getSingleCourse);
 courseRouter.route("/getAllCourse").get(getAllCourse);
-courseRouter
-  .route("/likeCourseContent/:id")
-  .put(isAuthenticated, likeCourseContent);
+// courseRouter
+//   .route("/likeCourseContent/:id")
+//   .put(isAuthenticated, likeCourseContent);
 courseRouter
   .route("/generateVideoUrl")
   .post(generateVideoUrl);
@@ -48,7 +48,7 @@ courseRouter
   .route("/adminReplyReview")
   .put(isAuthenticated, authorizedRole("admin"), adminReplyReview);
 courseRouter
-  .route("/get-admin-courses")
+  .route("/get-admin-allcourses")
   .get(isAuthenticated, authorizedRole("admin"), getAdminAllCourses);
 courseRouter
   .route("/deleteCourseByAdmin/:id")

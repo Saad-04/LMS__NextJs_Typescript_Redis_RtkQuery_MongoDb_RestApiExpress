@@ -1,7 +1,7 @@
 'use client';
 import { FC, useEffect, useState } from 'react';
 import { ProSidebar, Menu, MenuItem } from 'react-pro-sidebar';
-import { Box, IconButton, Typography } from '@mui/material';
+import { Box, Collapse, IconButton, Typography } from '@mui/material';
 import 'react-pro-sidebar/dist/css/styles.css';
 import {
   HomeOutlinedIcon,
@@ -150,29 +150,43 @@ const Sidebar = () => {
           )}
 
           <Box paddingLeft={isCollapsed ? undefined : '1%'}>
-            <Item
-              title="Dashboard"
-              to="/admin"
-              icon={<HomeOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-
+            <div
+              onClick={() => {
+                setIsCollapsed(!isCollapsed);
+              }}>
+              <Item
+                title="Dashboard"
+                to="/admin"
+                icon={<HomeOutlinedIcon />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+            </div>
             <Typography
               variant="h5"
               sx={{ m: '15px 0 5px 25px' }}
               className="!text-[18px] text-black dark:text-[#ffffffc1] capitalize !font-[400]">
               {!isCollapsed && 'Data'}
             </Typography>
-            <Item title="Users" to="/admin/users" icon={<GroupsIcon />} selected={selected} setSelected={setSelected} />
-
             <Item
-              title="Invoices"
-              to="/admin/invoices"
-              icon={<ReceiptOutlinedIcon />}
+              title="AllUsers"
+              to="/admin/users"
+              icon={<GroupsIcon />}
               selected={selected}
               setSelected={setSelected}
             />
+            <div
+              onClick={() => {
+                setIsCollapsed(false);
+              }}>
+              <Item
+                title="Invoices"
+                to="/admin/invoices"
+                icon={<ReceiptOutlinedIcon />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+            </div>
 
             <Typography
               variant="h5"
@@ -180,80 +194,120 @@ const Sidebar = () => {
               sx={{ m: '15px 0 5px 20px' }}>
               {!isCollapsed && 'Content'}
             </Typography>
-            <Item
-              title="Create Course"
-              to="/admin/create-course"
-              icon={<VideoCallIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="All Courses"
-              to="/admin/courses"
-              icon={<OndemandVideoIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-
+            <div
+              onClick={() => {
+                setIsCollapsed(!isCollapsed);
+              }}>
+              <Item
+                title="Create Course"
+                to="/admin/create-course"
+                icon={<VideoCallIcon />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+            </div>
+            <div
+              onClick={() => {
+                setIsCollapsed(!isCollapsed);
+              }}>
+              <Item
+                title="All Courses"
+                to="/admin/courses"
+                icon={<OndemandVideoIcon />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+            </div>
             <Typography
               variant="h5"
               className="!text-[18px] text-black dark:text-[#ffffffc1] capitalize !font-[400]"
               sx={{ m: '15px 0 5px 20px' }}>
               {!isCollapsed && 'Customization'}
             </Typography>
-            <Item title="Hero" to="/admin/hero" icon={<WebIcon />} selected={selected} setSelected={setSelected} />
-            <Item title="FAQ" to="/admin/faq" icon={<QuizIcon />} selected={selected} setSelected={setSelected} />
-            <Item
-              title="Categories"
-              to="/admin/categories"
-              icon={<WysiwygIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-
+            <div
+              onClick={() => {
+                setIsCollapsed(!isCollapsed);
+              }}>
+              <Item title="Hero" to="/admin/hero" icon={<WebIcon />} selected={selected} setSelected={setSelected} />
+            </div>
+            <div
+              onClick={() => {
+                setIsCollapsed(!isCollapsed);
+              }}>
+              <Item title="FAQ" to="/admin/faq" icon={<QuizIcon />} selected={selected} setSelected={setSelected} />
+            </div>
+            <div
+              onClick={() => {
+                setIsCollapsed(!isCollapsed);
+              }}>
+              <Item
+                title="Categories"
+                to="/admin/categories"
+                icon={<WysiwygIcon />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+            </div>
             <Typography
               variant="h5"
               className="!text-[18px] text-black dark:text-[#ffffffc1] capitalize !font-[400]"
               sx={{ m: '15px 0 5px 20px' }}>
               {!isCollapsed && 'Controllers'}
             </Typography>
-            <Item
-              title="Manage Team"
-              to="/admin/team"
-              icon={<PeopleOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-
+            <div
+              onClick={() => {
+                setIsCollapsed(!isCollapsed);
+              }}>
+              <Item
+                title="Manage Team"
+                to="/admin/team"
+                icon={<PeopleOutlinedIcon />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+            </div>
             <Typography
               variant="h6"
               className="!text-[18px] text-black dark:text-[#ffffffc1] capitalize !font-[400]"
               sx={{ m: '15px 0 5px 20px' }}>
               {!isCollapsed && 'Analytics'}
             </Typography>
-            <Item
-              title="Courses Analytics"
-              to="/admin/courses-analytics"
-              icon={<BarChartOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Orders Analytics"
-              to="/admin/orders-analytics"
-              icon={<MapOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-
-            <Item
-              title="Users Analytics"
-              to="/admin/users-analytics"
-              icon={<ManageHistoryIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-
+            <div
+              onClick={() => {
+                setIsCollapsed(!isCollapsed);
+              }}>
+              <Item
+                title="Courses Analytics"
+                to="/admin/courses-analytics"
+                icon={<BarChartOutlinedIcon />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+            </div>
+            <div
+              onClick={() => {
+                setIsCollapsed(!isCollapsed);
+              }}>
+              <Item
+                title="Orders Analytics"
+                to="/admin/orders-analytics"
+                icon={<MapOutlinedIcon />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+            </div>
+            <div
+              onClick={() => {
+                setIsCollapsed(!isCollapsed);
+              }}>
+              <Item
+                title="Users Analytics"
+                to="/admin/users-analytics"
+                icon={<ManageHistoryIcon />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+            </div>
             <Typography
               variant="h6"
               className="!text-[18px] text-black dark:text-[#ffffffc1] capitalize !font-[400]"

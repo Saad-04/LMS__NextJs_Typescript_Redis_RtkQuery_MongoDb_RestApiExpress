@@ -10,7 +10,7 @@ export interface IComment extends Document {
   user: Iuser;
   comment: string;
   commentReplies: IComment[];
-  likes?: Iuser[];
+  // likes?: Iuser[];
 }
 
 interface ILink extends Document {
@@ -30,7 +30,7 @@ export interface ICourseData extends Document {
   links: ILink[];
   suggestion: string;
   questions: IComment[];
-  likes?: Iuser[];
+  // likes?: Iuser[];
 }
 
 export interface ICourse extends Document {
@@ -57,7 +57,7 @@ const commentSchema = new Schema<IComment>(
     user: Object,
     comment: String,
     commentReplies: [Object],
-    likes: [Object],
+    // likes: [Object],
   },
   { timestamps: true }
 );
@@ -65,7 +65,7 @@ const commentSchema = new Schema<IComment>(
 interface IReview extends Document {
   user: Iuser;
   rating?: number;
-  likes?: Iuser[];
+  // likes?: Iuser[];
   reviewComment: string;
   commentReplies?: IComment[]; //only admin can reply this comment
 }
@@ -78,7 +78,7 @@ const reviewSchema = new Schema<IReview>(
       default: 0,
     },
     commentReplies: [Object],
-    likes: [Object],
+    // likes: [Object],
   },
   { timestamps: true }
 );
@@ -98,7 +98,7 @@ export const courseDataSchema = new Schema<ICourseData>({
   links: [linkSchema],
   suggestion: String,
   questions: [commentSchema],
-  likes: [],
+  // likes: [],
 });
 export const courseSchema = new Schema<ICourse>(
   {

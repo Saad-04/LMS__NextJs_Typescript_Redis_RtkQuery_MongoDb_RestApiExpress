@@ -34,7 +34,7 @@ userRouter.route("/updateUserPicture").put(isAuthenticated, updateUserPicture);
 
 // ---------------------------admin routes start here----------------------------
 userRouter.get(
-  "/get-admin-users",
+  "/get-admin-allusers",
   isAuthenticated,
   authorizedRole("admin"),
   getAdminAllUsers

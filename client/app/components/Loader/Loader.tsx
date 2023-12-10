@@ -1,12 +1,12 @@
 import React from 'react';
 import './Loader.css';
 
-const Verification: React.FC = () => {
+const Loader = () => {
   return (
-    <div className="loader-container">
+    <div className="flex justify-center items-center h-screen">
       <div className="loader"></div>
     </div>
   );
 };
 
-export default Verification;
+export default Loader;
