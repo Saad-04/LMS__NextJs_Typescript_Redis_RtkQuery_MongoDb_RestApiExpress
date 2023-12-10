@@ -18,6 +18,7 @@ const AllCourses: FC<Props> = ({ isTeam }) => {
   const [active, setActive] = useState(false);
   const [email, setEmail] = useState('');
   const [role, setRole] = useState('admin');
+
   const [open, setOpen] = useState(false);
   const [userId, setUserId] = useState('');
   const [updateUserRole, { error: updateError, isSuccess }] = useUpdateUserRoleMutation();
@@ -103,7 +104,7 @@ const AllCourses: FC<Props> = ({ isTeam }) => {
           name: item.name,
           email: item.email,
           role: item.role,
-          courses: item.courseData.length,
+          // courses: item.courseData.length,
           created_at: format(item.createdAt),
         });
       });
@@ -135,118 +136,120 @@ const AllCourses: FC<Props> = ({ isTeam }) => {
       {isLoading ? (
         <Loader />
       ) : (
-        <Box m="20px">
-          {isTeam && (
-            <div className="w-full flex justify-end">
-              <div
-                className={`${styles.button} !w-[200px] !rounded-[10px] dark:bg-[#57c7a3] !h-[35px] dark:border dark:border-[#ffffff6c]`}
-                onClick={() => setActive(!active)}>
-                Add New Member
+        <>
+          <Box m="20px">
+            {isTeam && (
+              <div className="w-full flex justify-end">
+                <div
+                  className={`${styles.button} !w-[200px] !rounded-[10px] dark:bg-[#57c7a3] !h-[35px] dark:border dark:border-[#ffffff6c]`}
+                  onClick={() => setActive(!active)}>
+                  Add New Member
+                </div>
               </div>
-            </div>
-          )}
-          <Box
-            m="40px 0 0 0"
-            height="80vh"
-            sx={{
-              '& .MuiDataGrid-root': {
-                border: 'none',
-                outline: 'none',
-              },
-              '& .css-pqjvzy-MuiSvgIcon-root-MuiSelect-icon': {
-                color: theme === 'dark' ? '#fff' : '#000',
-              },
-              '& .MuiDataGrid-sortIcon': {
-                color: theme === 'dark' ? '#fff' : '#000',
-              },
-              '& .MuiDataGrid-row': {
-                color: theme === 'dark' ? '#fff' : '#000',
-                borderBottom: theme === 'dark' ? '1px solid #ffffff30!important' : '1px solid #ccc!important',
-              },
-              '& .MuiTablePagination-root': {
-                color: theme === 'dark' ? '#fff' : '#000',
-              },
-              '& .MuiDataGrid-cell': {
-                borderBottom: 'none!important',
-              },
-              '& .name-column--cell': {
-                color: theme === 'dark' ? '#fff' : '#000',
-              },
-              '& .MuiDataGrid-columnHeaders': {
-                backgroundColor: theme === 'dark' ? '#3e4396' : '#A4A9FC',
-                borderBottom: 'none',
-                color: theme === 'dark' ? '#fff' : '#000',
-              },
-              '& .MuiDataGrid-virtualScroller': {
-                backgroundColor: theme === 'dark' ? '#1F2A40' : '#F2F0F0',
-              },
-              '& .MuiDataGrid-footerContainer': {
-                color: theme === 'dark' ? '#fff' : '#000',
-                borderTop: 'none',
-                backgroundColor: theme === 'dark' ? '#3e4396' : '#A4A9FC',
-              },
-              '& .MuiCheckbox-root': {
-                color: theme === 'dark' ? `#b7ebde !important` : `#000 !important`,
-              },
-              '& .MuiDataGrid-toolbarContainer .MuiButton-text': {
-                color: `#fff !important`,
-              },
-            }}>
-            <DataGrid checkboxSelection rows={rows} columns={columns} />
-          </Box>
-          {active && (
-            <Modal
-              open={active}
-              onClose={() => setActive(!active)}
-              aria-labelledby="modal-modal-title"
-              aria-describedby="modal-modal-description">
-              <Box className="absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 w-[450px] bg-white dark:bg-slate-900 rounded-[8px] shadow p-4 outline-none">
-                <h1 className={`${styles.title}`}>Add New Member</h1>
-                <div className="mt-4">
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Enter email..."
-                    className={`${styles.input}`}
-                  />
-                  <select
-                    name=""
-                    id=""
-                    className={`${styles.input} !mt-6`}
-                    onChange={(e: any) => setRole(e.target.value)}>
-                    <option value="admin">Admin</option>
-                    <option value="user">User</option>
-                  </select>
-                  <br />
-                  <div className={`${styles.button} my-6 !h-[30px]`} onClick={handleSubmit}>
-                    Submit
+            )}
+            <Box
+              m="40px 0 0 0"
+              height="80vh"
+              sx={{
+                '& .MuiDataGrid-root': {
+                  border: 'none',
+                  outline: 'none',
+                },
+                '& .css-pqjvzy-MuiSvgIcon-root-MuiSelect-icon': {
+                  color: theme === 'dark' ? '#fff' : '#000',
+                },
+                '& .MuiDataGrid-sortIcon': {
+                  color: theme === 'dark' ? '#fff' : '#000',
+                },
+                '& .MuiDataGrid-row': {
+                  color: theme === 'dark' ? '#fff' : '#000',
+                  borderBottom: theme === 'dark' ? '1px solid #ffffff30!important' : '1px solid #ccc!important',
+                },
+                '& .MuiTablePagination-root': {
+                  color: theme === 'dark' ? '#fff' : '#000',
+                },
+                '& .MuiDataGrid-cell': {
+                  borderBottom: 'none!important',
+                },
+                '& .name-column--cell': {
+                  color: theme === 'dark' ? '#fff' : '#000',
+                },
+                '& .MuiDataGrid-columnHeaders': {
+                  backgroundColor: theme === 'dark' ? '#3e4396' : '#A4A9FC',
+                  borderBottom: 'none',
+                  color: theme === 'dark' ? '#fff' : '#000',
+                },
+                '& .MuiDataGrid-virtualScroller': {
+                  backgroundColor: theme === 'dark' ? '#1F2A40' : '#F2F0F0',
+                },
+                '& .MuiDataGrid-footerContainer': {
+                  color: theme === 'dark' ? '#fff' : '#000',
+                  borderTop: 'none',
+                  backgroundColor: theme === 'dark' ? '#3e4396' : '#A4A9FC',
+                },
+                '& .MuiCheckbox-root': {
+                  color: theme === 'dark' ? `#b7ebde !important` : `#000 !important`,
+                },
+                '& .MuiDataGrid-toolbarContainer .MuiButton-text': {
+                  color: `#fff !important`,
+                },
+              }}>
+              <DataGrid checkboxSelection rows={rows} columns={columns} />
+            </Box>
+            {active && (
+              <Modal
+                open={active}
+                onClose={() => setActive(!active)}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description">
+                <Box className="absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 w-[450px] bg-white dark:bg-slate-900 rounded-[8px] shadow p-4 outline-none">
+                  <h1 className={`${styles.title}`}>Add New Member</h1>
+                  <div className="mt-4">
+                    <input
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="Enter email..."
+                      className={`${styles.input}`}
+                    />
+                    <select
+                      name=""
+                      id=""
+                      className={`${styles.input} !mt-6`}
+                      onChange={(e: any) => setRole(e.target.value)}>
+                      <option value="admin">Admin</option>
+                      <option value="user">User</option>
+                    </select>
+                    <br />
+                    <div className={`${styles.button} my-6 !h-[30px]`} onClick={handleSubmit}>
+                      Submit
+                    </div>
                   </div>
-                </div>
-              </Box>
-            </Modal>
-          )}
+                </Box>
+              </Modal>
+            )}
 
-          {open && (
-            <Modal
-              open={open}
-              onClose={() => setOpen(!open)}
-              aria-labelledby="modal-modal-title"
-              aria-describedby="modal-modal-description">
-              <Box className="absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 w-[450px] bg-white dark:bg-slate-900 rounded-[8px] shadow p-4 outline-none">
-                <h1 className={`${styles.title}`}>Are you sure you want to delete this user?</h1>
-                <div className="flex w-full items-center justify-between mb-6 mt-4">
-                  <div className={`${styles.button} !w-[120px] h-[30px] bg-[#57c7a3]`} onClick={() => setOpen(!open)}>
-                    Cancel
+            {open && (
+              <Modal
+                open={open}
+                onClose={() => setOpen(!open)}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description">
+                <Box className="absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 w-[450px] bg-white dark:bg-slate-900 rounded-[8px] shadow p-4 outline-none">
+                  <h1 className={`${styles.title}`}>Are you sure you want to delete this user?</h1>
+                  <div className="flex w-full items-center justify-between mb-6 mt-4">
+                    <div className={`${styles.button} !w-[120px] h-[30px] bg-[#57c7a3]`} onClick={() => setOpen(!open)}>
+                      Cancel
+                    </div>
+                    <div className={`${styles.button} !w-[120px] h-[30px] bg-[#d63f3f]`} onClick={handleDelete}>
+                      Delete
+                    </div>
                   </div>
-                  <div className={`${styles.button} !w-[120px] h-[30px] bg-[#d63f3f]`} onClick={handleDelete}>
-                    Delete
-                  </div>
-                </div>
-              </Box>
-            </Modal>
-          )}
-        </Box>
+                </Box>
+              </Modal>
+            )}
+          </Box>
+        </>
       )}
     </div>
   );

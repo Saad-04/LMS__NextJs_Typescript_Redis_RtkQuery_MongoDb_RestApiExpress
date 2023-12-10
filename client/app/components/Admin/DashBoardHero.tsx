@@ -4,14 +4,21 @@ import DashboardHeader from './DashBoardHeader';
 
 type Props = {
   isDashboard?: boolean;
+  activeRefreshUsers?: boolean;
+  activeRefreshCourses?: boolean;
 };
 
-const DashboardHero = ({ isDashboard }: Props) => {
+const DashboardHero = ({ isDashboard, activeRefreshUsers, activeRefreshCourses }: Props) => {
   const [open, setOpen] = useState(false);
 
   return (
     <div>
-      <DashboardHeader open={open} setOpen={setOpen} />
+      <DashboardHeader
+        open={open}
+        setOpen={setOpen}
+        activeRefreshCourses={activeRefreshCourses}
+        activeRefreshUsers={activeRefreshUsers}
+      />
       {/* {isDashboard && <DashboardWidgets open={open} />} */}
     </div>
   );

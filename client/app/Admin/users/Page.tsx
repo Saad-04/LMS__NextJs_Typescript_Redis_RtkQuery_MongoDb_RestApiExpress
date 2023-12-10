@@ -2,13 +2,19 @@
 import DashboardHero from '../../components/Admin/DashBoardHero';
 import AdminProtected from '../../Hooks/AdminProtected';
 import Heading from '@/app/utils/Heading';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import AdminSidebar from '../../components/Admin/SideBar/AdminSideBar';
 import AllUsers from '../../components/Admin/Users/AllUsers';
 
 type Props = {};
 
-const page = (props: Props) => {
+const Page = (props: Props) => {
+  const [activeRefreshUsers, setActiveRefreshUsers] = useState<boolean>(false);
+
+  useEffect(() => {
+    setActiveRefreshUsers(true);
+  }, []);
+
   return (
     <div>
       <AdminProtected>
@@ -22,7 +28,7 @@ const page = (props: Props) => {
             <AdminSidebar />
           </div>
           <div className="w-[85%]">
-            <DashboardHero />
+            <DashboardHero activeRefreshUsers={activeRefreshUsers} />
             <AllUsers />
           </div>
         </div>
@@ -31,4 +37,4 @@ const page = (props: Props) => {
   );
 };
 
-export default page;
+export default Page;

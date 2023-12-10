@@ -11,16 +11,27 @@ import { IoMdNotificationsOutline } from 'react-icons/io';
 // import { format } from 'timeago.js';
 // const ENDPOINT = process.env.NEXT_PUBLIC_SOCKET_SERVER_URI || '';
 // const socketId = socketIO(ENDPOINT, { transports: ['websocket'] });
+import RefreshIcon from '@mui/icons-material/Refresh';
+import { useGetAllUsersQuery } from '@/redux/features/user/userApi';
+import { useGetAdminAllCoursesQuery } from '@/redux/features/courses/courseApi';
 
 type Props = {
   open?: boolean;
+  activeRefreshUsers?: boolean;
+  activeRefreshCourses?: boolean;
   setOpen?: any;
 };
 
-const DashboardHeader: FC<Props> = ({ open, setOpen }) => {
+const DashboardHeader: FC<Props> = ({ open, setOpen, activeRefreshUsers, activeRefreshCourses }) => {
   // const { data, refetch } = useGetAllNotificationsQuery(undefined, {
   //   refetchOnMountOrArgChange: true,
   // });
+  const { isLoading, data, refetch } = useGetAllUsersQuery({}, { refetchOnMountOrArgChange: true });
+  const {
+    isLoading: loading,
+    data: courseData,
+    refetch: courseRefetch,
+  } = useGetAdminAllCoursesQuery({}, { refetchOnMountOrArgChange: true });
   // const [updateNotificationStatus, { isSuccess }] = useUpdateNotificationStatusMutation();
   // const [notifications, setNotifications] = useState<any>([]);
   // const [audio] = useState<any>(
@@ -54,7 +65,25 @@ const DashboardHeader: FC<Props> = ({ open, setOpen }) => {
   };
 
   return (
-    <div className="w-full flex items-center bg-[#029e88c9] dark:bg-[#1f2940] justify-end p-6 pb-0 fixed top-0 right-0 z-[99]">
+    <div className="w-full flex items-center bg-[#029e88c9] dark:text-white dark:bg-[#1f2940] justify-end p-6 pb-0 fixed top-0 right-0 z-[99]">
+      {activeRefreshUsers && (
+        <div
+          onClick={() => {
+            refetch();
+          }}
+          className="hover:cursor-pointer">
+          <RefreshIcon />
+        </div>
+      )}
+      {activeRefreshCourses && (
+        <div
+          onClick={() => {
+            courseRefetch();
+          }}
+          className="hover:cursor-pointer">
+          <RefreshIcon />
+        </div>
+      )}
       <ThemeSwitcher />
       <div className="relative cursor-pointer m-2" onClick={() => setOpen(!open)}>
         <IoMdNotificationsOutline className="text-2xl cursor-pointer dark:text-white text-black" />

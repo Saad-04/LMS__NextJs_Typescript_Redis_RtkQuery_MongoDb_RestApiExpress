@@ -10,7 +10,6 @@ import { format } from 'timeago.js';
 import { styles } from '../../../Styles/style';
 import { toast } from 'react-hot-toast';
 import Link from 'next/link';
-import RefreshIcon from '@mui/icons-material/Refresh';
 
 type Props = {};
 
@@ -23,22 +22,8 @@ const AllCourses = (props: Props) => {
   // for delete the course
   const [deleteCourse, { isSuccess, error }] = useDeleteCourseMutation({});
   // this is header of get allcourse section admin page
-  const columns = [
-    {
-      field: '',
-      headerName: (
-        <span
-          onClick={() => {
-            refetch();
-          }}>
-          {' '}
-          Refresh
-        </span>
-      ),
-      flex: 0.2,
-    },
+  const columns: readonly GridColDef<any>[] = [
     { field: 'id', headerName: 'ID', flex: 0.2 },
-
     { field: 'title', headerName: 'Course Title', flex: 0.5 },
     { field: 'ratings', headerName: 'Ratings', flex: 0.2 },
     { field: 'purchased', headerName: 'Purchased', flex: 0.2 },

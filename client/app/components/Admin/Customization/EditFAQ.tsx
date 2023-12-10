@@ -129,19 +129,16 @@ const EditFaq = (props: Props) => {
         </div>
 
         <div
-        // className={`${styles.button} !w-[100px] !min-h-[40px] !h-[40px] dark:text-white text-black bg-[#cccccc34]
-        // ${
-        //   areQuestionsUnchanged(data.layout.faq, questions) || isAnyQuestionEmpty(questions)
-        //     ? '!cursor-not-allowed'
-        //     : '!cursor-pointer !bg-[#42d383]'
-        // }
-        // !rounded fixed bottom-12 right-12`}
-        // onClick={
-        //   areQuestionsUnchanged(data.layout.faq, questions) || isAnyQuestionEmpty(questions)
-        //     ? () => null
-        //     : handleEdit
-        // }
-        >
+          className={`${styles.button} !w-[100px] !min-h-[40px] !h-[40px] dark:text-white text-black bg-[#cccccc34] 
+        ${
+          areQuestionsUnchanged(data.layout.faq, questions) || isAnyQuestionEmpty(questions)
+            ? '!cursor-not-allowed'
+            : '!cursor-pointer !bg-[#42d383]'
+        }
+        !rounded fixed bottom-12 right-12`}
+          onClick={
+            areQuestionsUnchanged(data.layout.faq, questions) || isAnyQuestionEmpty(questions) ? () => null : handleEdit
+          }>
           Save
         </div>
       </div>
