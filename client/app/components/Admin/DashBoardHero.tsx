@@ -5,6 +5,8 @@ import DashboardHeader from './DashBoardHeader';
 type Props = {
   isDashboard?: boolean;
   activeRefreshUsers?: boolean;
+  // activeRefreshAdminTeam?: boolean;
+
   activeRefreshCourses?: boolean;
 };
 
@@ -18,6 +20,7 @@ const DashboardHero = ({ isDashboard, activeRefreshUsers, activeRefreshCourses }
         setOpen={setOpen}
         activeRefreshCourses={activeRefreshCourses}
         activeRefreshUsers={activeRefreshUsers}
+        // activeRefreshAdminTeam={activeRefreshAdminTeam}
       />
       {/* {isDashboard && <DashboardWidgets open={open} />} */}
     </div>

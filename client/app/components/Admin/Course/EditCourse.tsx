@@ -14,7 +14,7 @@ type Props = {
 };
 
 const EditCourse: FC<Props> = ({ id }) => {
-  const [editCourse, { isSuccess, error }] = useEditCourseMutation();
+  const [editCourse, { isSuccess, error, isLoading }] = useEditCourseMutation();
   const { data, refetch } = useGetAdminAllCoursesQuery({}, { refetchOnMountOrArgChange: true });
 
   const editCourseData = data && data.courses.find((i: any) => i._id === id);
@@ -24,13 +24,16 @@ const EditCourse: FC<Props> = ({ id }) => {
       toast.success('Course Updated successfully');
       redirect('/admin/courses');
     }
+    if (isLoading) {
+      toast.success('please wait...');
+    }
     if (error) {
       if ('data' in error) {
         const errorMessage = error as any;
         toast.error(errorMessage.data.message);
       }
     }
-  }, [isSuccess, error]);
+  }, [isSuccess, error, isLoading]);
 
   const [active, setActive] = useState(0);
 

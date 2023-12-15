@@ -1,3 +1,4 @@
+import { useEditLayoutMutation, useGetHeroDataQuery } from '@/redux/features/layouts/layoutApi';
 import { styles } from '../../../Styles/style';
 // import { useEditLayoutMutation, useGetHeroDataQuery } from '@/redux/features/layout/layoutApi';
 import React, { FC, useEffect, useState } from 'react';
@@ -9,30 +10,35 @@ type Props = {};
 const EditHero: FC<Props> = (props: Props) => {
   const [image, setImage] = useState('');
   const [title, setTitle] = useState('');
-  const [subTitle, setSubTitle] = useState('');
-  // const { data, refetch } = useGetHeroDataQuery('Banner', {
-  //   refetchOnMountOrArgChange: true,
-  // });
-  // const [editLayout, { isLoading, isSuccess, error }] = useEditLayoutMutation();
+  const [subtitle, setSubTitle] = useState('');
+  const { data, refetch } = useGetHeroDataQuery('banner', {
+    refetchOnMountOrArgChange: true,
+  });
+  const [editLayout, { isLoading, isSuccess, error }] = useEditLayoutMutation();
 
-  // useEffect(() => {
-  //   if (data) {
-  //     setTitle(data?.layout?.banner.title);
-  //     setSubTitle(data?.layout?.banner.subTitle);
-  //     setImage(data?.layout?.banner?.image?.url);
-  //   }
-  //   if (isSuccess) {
-  //     toast.success('Hero updated successfully!');
-  //     refetch();
-  //   }
-  //   if (error) {
-  //     if ('data' in error) {
-  //       const errorData = error as any;
-  //       toast.error(errorData?.data?.message);
-  //     }
-  //   }
-  // }, [data, isSuccess, error]);
+  useEffect(() => {
+    if (data) {
+      // add previous data from data base
+      setTitle(data?.layout?.banner.title);
+      setSubTitle(data?.layout?.banner.subtitle);
+      setImage(data?.layout?.banner?.image?.url);
+    }
+    if (isSuccess) {
+      toast.success('Hero updated successfully!');
+      refetch();
+    }
+    if (isLoading) {
+      toast.success('please wait...');
+    }
+    if (error) {
+      if ('data' in error) {
+        const errorData = error as any;
+        toast.error(errorData?.data?.message);
+      }
+    }
+  }, [data, isSuccess, error]);
 
+  // again update input file to update image
   const handleUpdate = (e: any) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -47,12 +53,12 @@ const EditHero: FC<Props> = (props: Props) => {
   };
 
   const handleEdit = async () => {
-    // await editLayout({
-    //   type: 'Banner',
-    //   image,
-    //   title,
-    //   subTitle,
-    // });
+    await editLayout({
+      type: 'banner',
+      image,
+      title,
+      subtitle,
+    });
   };
 
   return (
@@ -64,6 +70,7 @@ const EditHero: FC<Props> = (props: Props) => {
             <img
               src={image}
               alt=""
+              sizes="40"
               className="object-contain 1100px:max-w-[90%] w-[90%] 1500px:max-w-[85%] h-[auto] z-[10]"
             />
             <input type="file" name="" id="banner" accept="image/*" onChange={handleUpdate} className="hidden" />
@@ -82,31 +89,31 @@ const EditHero: FC<Props> = (props: Props) => {
           />
           <br />
           <textarea
-            value={subTitle}
+            value={subtitle}
             onChange={(e) => setSubTitle(e.target.value)}
             placeholder="We have 40k+ Online courses & 500K+ Online registered student. Find your desired Courses from them."
-            className="dark:text-[#edfff4] text-[#000000ac] font-Josefin font-[600] text-[18px] 1500px:!w-[55%] 1100px:!w-[74%] bg-transparent outline-none resize-none"></textarea>
+            className="dark:text-[#edfff4] text-[#000000ac] font-Josefin font-[600] text-[18px] 1500px:!w-[55%] 1100px:!w-[74%] bg-transparent outline-none resize-none"
+          />
           <br />
           <br />
           <br />
           <div
-          //   className={`${styles.button} !w-[100px] !min-h-[40px] !h-[40px] dark:text-white text-black bg-[#cccccc34]
-          // // ${
-          // //   data?.layout?.banner?.title !== title ||
-          // //   data?.layout?.banner?.subTitle !== subTitle ||
-          // //   data?.layout?.banner?.image?.url !== image
-          // //     ? '!cursor-pointer !bg-[#42d383]'
-          // //     : '!cursor-not-allowed'
-          // // }
-          // !rounded absolute bottom-12 right-12`}
-          //   // onClick={
-          //   //   data?.layout?.banner?.title !== title ||
-          //   //   data?.layout?.banner?.subTitle !== subTitle ||
-          //   //   data?.layout?.banner?.image?.url !== image
-          //   //     ? handleEdit
-          //   //     : () => null
-          //   // }
-          >
+            className={`${styles.button} !w-[100px] !min-h-[40px] !h-[40px] dark:text-white text-black bg-[#cccccc34]
+          ${
+            data?.layout?.banner?.title !== title ||
+            data?.layout?.banner?.subtitle !== subtitle ||
+            data?.layout?.banner?.image?.url !== image
+              ? '!cursor-pointer !bg-[#42d383]'
+              : '!cursor-not-allowed'
+          }
+          !rounded absolute bottom-12 right-12`}
+            onClick={
+              data?.layout?.banner?.title !== title ||
+              data?.layout?.banner?.subtitle !== subtitle ||
+              data?.layout?.banner?.image?.url !== image
+                ? handleEdit
+                : () => null
+            }>
             Save
           </div>
         </div>

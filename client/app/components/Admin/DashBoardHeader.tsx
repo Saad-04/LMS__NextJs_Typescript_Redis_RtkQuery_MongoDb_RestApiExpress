@@ -19,19 +19,28 @@ type Props = {
   open?: boolean;
   activeRefreshUsers?: boolean;
   activeRefreshCourses?: boolean;
+  // activeRefreshAdminTeam?: boolean;
   setOpen?: any;
 };
 
-const DashboardHeader: FC<Props> = ({ open, setOpen, activeRefreshUsers, activeRefreshCourses }) => {
+const DashboardHeader: FC<Props> = ({
+  open,
+  setOpen,
+  // activeRefreshAdminTeam,
+  activeRefreshUsers,
+  activeRefreshCourses,
+}) => {
   // const { data, refetch } = useGetAllNotificationsQuery(undefined, {
   //   refetchOnMountOrArgChange: true,
   // });
   const { isLoading, data, refetch } = useGetAllUsersQuery({}, { refetchOnMountOrArgChange: true });
+  // for get all courses by admin
   const {
     isLoading: loading,
     data: courseData,
     refetch: courseRefetch,
   } = useGetAdminAllCoursesQuery({}, { refetchOnMountOrArgChange: true });
+
   // const [updateNotificationStatus, { isSuccess }] = useUpdateNotificationStatusMutation();
   // const [notifications, setNotifications] = useState<any>([]);
   // const [audio] = useState<any>(
@@ -84,6 +93,15 @@ const DashboardHeader: FC<Props> = ({ open, setOpen, activeRefreshUsers, activeR
           <RefreshIcon />
         </div>
       )}
+      {/* {activeRefreshAdminTeam && (
+        <div
+          onClick={() => {
+            refetch();
+          }}
+          className="hover:cursor-pointer">
+          <RefreshIcon />
+        </div>
+      )} */}
       <ThemeSwitcher />
       <div className="relative cursor-pointer m-2" onClick={() => setOpen(!open)}>
         <IoMdNotificationsOutline className="text-2xl cursor-pointer dark:text-white text-black" />

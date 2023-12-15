@@ -5,7 +5,7 @@ import { AiOutlineDelete, AiOutlinePlusCircle } from 'react-icons/ai';
 import { BsLink45Deg, BsPencil } from 'react-icons/bs';
 import { MdOutlineKeyboardArrowDown } from 'react-icons/md';
 import NexPreButton from './Buttons/NexPreButton';
-import { InputName } from './Buttons/Inputs';
+// import { InputName } from './Buttons/NexPreButton';
 
 type Props = {
   active: number;

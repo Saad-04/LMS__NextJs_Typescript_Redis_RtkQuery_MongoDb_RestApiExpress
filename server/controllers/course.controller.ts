@@ -75,6 +75,12 @@ export const editCourse = catchAsyncError(
           new: true,
         }
       );
+      // here we again find all courses and then again change redis allcourses data to new data 
+      const allCourse = await CourseModel.find().select(
+        "-courseData.videoUrl -courseData.suggestion -courseData.questions -courseData.links"
+      );
+      // Set the key with an expiration time of 5 minutes (300 seconds)
+      await redis.setex("allCourses", 300, JSON.stringify(allCourse));
 
       res.status(201).json({
         success: true,
@@ -132,7 +138,7 @@ export const getAllCourse = catchAsyncError(
         const allCourse = await CourseModel.find().select(
           "-courseData.videoUrl -courseData.suggestion -courseData.questions -courseData.links"
         );
-        await redis.set("allCourses", JSON.stringify(allCourse));
+        await redis.setex("allCourses", 300, JSON.stringify(allCourse));
 
         res.status(200).json({
           success: true,

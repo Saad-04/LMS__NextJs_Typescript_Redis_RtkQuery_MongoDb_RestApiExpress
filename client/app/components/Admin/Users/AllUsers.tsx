@@ -93,7 +93,7 @@ const AllCourses: FC<Props> = ({ isTeam }) => {
   ];
 
   const rows: any = [];
-
+  // this if for admin manage team component only filter admin users
   if (isTeam) {
     const newData = data && data.users.filter((item: any) => item.role === 'admin');
 
@@ -108,7 +108,9 @@ const AllCourses: FC<Props> = ({ isTeam }) => {
           created_at: format(item.createdAt),
         });
       });
-  } else {
+  }
+  // this else is for admin to get all users of all roles
+  else {
     data &&
       data.users.forEach((item: any) => {
         rows.push({
@@ -139,7 +141,10 @@ const AllCourses: FC<Props> = ({ isTeam }) => {
         <>
           <Box m="20px">
             {isTeam && (
-              <div className="w-full flex justify-end">
+              <div className="w-full flex justify-between mx-4">
+                <div>
+                  <h2 className="dark:text-white">team members</h2>
+                </div>
                 <div
                   className={`${styles.button} !w-[200px] !rounded-[10px] dark:bg-[#57c7a3] !h-[35px] dark:border dark:border-[#ffffff6c]`}
                   onClick={() => setActive(!active)}>
@@ -215,10 +220,14 @@ const AllCourses: FC<Props> = ({ isTeam }) => {
                     <select
                       name=""
                       id=""
-                      className={`${styles.input} !mt-6`}
+                      className={`${styles.input} !mt-6 `}
                       onChange={(e: any) => setRole(e.target.value)}>
-                      <option value="admin">Admin</option>
-                      <option value="user">User</option>
+                      <option className="dark:text-black" value="admin">
+                        Admin
+                      </option>
+                      <option className="dark:text-black" value="user">
+                        User
+                      </option>
                     </select>
                     <br />
                     <div className={`${styles.button} my-6 !h-[30px]`} onClick={handleSubmit}>
