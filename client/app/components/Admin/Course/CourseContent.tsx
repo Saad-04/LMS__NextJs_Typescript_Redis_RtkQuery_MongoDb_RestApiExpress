@@ -224,7 +224,6 @@ const CourseContent: FC<Props> = ({
                         }}
                       />
                     </div>
-
                     <div className="mb-3">
                       <label className={styles.label}>Video Description</label>
                       <textarea

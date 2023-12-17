@@ -58,7 +58,7 @@ export const createLayout = catchAsyncError(
       }
 
       if (type === "category") {
-        const { category } = req.body;
+        const { category } = req.body;//this category is array of abject [{}]
         const categoriesItems = await Promise.all(
           category.map(async (item: any) => {
             return {
@@ -69,6 +69,34 @@ export const createLayout = catchAsyncError(
         await LayoutModel.create({
           type: "category",
           category: categoriesItems,
+        });
+      }
+      if (type === "privacyPolicy") {
+        const { privacyPolicy } = req.body;//this category is array of abject [{}]
+        const privacyPolicyItems = await Promise.all(
+          privacyPolicy.map(async (item: any) => {
+            return {
+              title: item.title,
+            };
+          })
+        );
+        await LayoutModel.create({
+          type: "privacyPolicy",
+          privacyPolicy: privacyPolicyItems,
+        });
+      }
+      if (type === "about") {
+        const { about } = req.body;//this category is array of abject [{}]
+        const aboutItems = await Promise.all(
+          about.map(async (item: any) => {
+            return {
+              title: item.title,
+            };
+          })
+        );
+        await LayoutModel.create({
+          type: "privacyPolicy",
+          about: aboutItems,
         });
       }
 
@@ -148,6 +176,34 @@ export const updateLayout = catchAsyncError(
         await LayoutModel.findByIdAndUpdate(layoutType?._id, {
           type: "category",
           category: categoriesItems,
+        });
+      }
+      if (type === "privacyPolicy") {
+        const { privacyPolicy } = req.body;
+        const privacyPolicyItems = await Promise.all(
+          privacyPolicy.map(async (item: any) => {
+            return {
+              title: item.title,
+            };
+          })
+        );
+        await LayoutModel.findByIdAndUpdate(layoutType?._id, {
+          type: "privacyPolicy",
+          privacyPolicy: privacyPolicyItems,
+        });
+      }
+      if (type === "about") {
+        const { about } = req.body;
+        const aboutItems = await Promise.all(
+          about.map(async (item: any) => {
+            return {
+              title: item.title,
+            };
+          })
+        );
+        await LayoutModel.findByIdAndUpdate(layoutType?._id, {
+          type: "about",
+          about: aboutItems,
         });
       }
 

@@ -12,7 +12,7 @@ notificationRouter
   .route("/getAllNotifications")
   .get(isAuthenticated, authorizedRole("admin"), getAllNotifications);
 notificationRouter
-  .route("/updateNotification/:id")
+  .route("/updateNotificationStatus/:id")
   .put(isAuthenticated, authorizedRole("admin"), updateNotification);
 
 // authorizedRole()

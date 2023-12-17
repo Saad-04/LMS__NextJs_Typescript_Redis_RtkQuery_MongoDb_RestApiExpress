@@ -13,11 +13,11 @@ const EditCategories = (props: Props) => {
     refetchOnMountOrArgChange: true,
   });
   const [editLayout, { isSuccess: layoutSuccess, error }] = useEditLayoutMutation();
-  const [categories, setCategories] = useState<any>([]);
+  const [category, setCategories] = useState<any>([]);
 
   useEffect(() => {
     if (data) {
-      setCategories(data.layout.categories);
+      setCategories(data.layout.category);
     }
     if (layoutSuccess) {
       refetch();
@@ -31,13 +31,13 @@ const EditCategories = (props: Props) => {
       }
     }
   }, [data, layoutSuccess, error, refetch]);
-
-  const handleCategoriesAdd = (id: any, value: string) => {
+  // when input field change then show this function work
+  const handleCategoriesAdd = (id: any, value: string, index: number) => {
     setCategories((prevCategory: any) => prevCategory.map((i: any) => (i._id === id ? { ...i, title: value } : i)));
   };
 
   const newCategoriesHandler = () => {
-    if (categories[categories.length - 1].title === '') {
+    if (category[category.length - 1].title === '') {
       toast.error('Category title cannot be empty');
     } else {
       setCategories((prevCategory: any) => [...prevCategory, { title: '' }]);
@@ -53,10 +53,10 @@ const EditCategories = (props: Props) => {
   };
 
   const editCategoriesHandler = async () => {
-    if (!areCategoriesUnchanged(data.layout.categories, categories) && !isAnyCategoryTitleEmpty(categories)) {
+    if (!areCategoriesUnchanged(data.layout.category, category) && !isAnyCategoryTitleEmpty(category)) {
       await editLayout({
         type: 'category',
-        categories,
+        category,
       });
     }
   };
@@ -68,15 +68,15 @@ const EditCategories = (props: Props) => {
       ) : (
         <div className="mt-[120px] text-center">
           <h1 className={`${styles.title}`}>All Categories</h1>
-          {categories &&
-            categories.map((item: any, index: number) => {
+          {category &&
+            category.map((item: any, index: number) => {
               return (
                 <div className="p-3" key={index}>
                   <div className="flex items-center w-full justify-center">
                     <input
                       className={`${styles.input} !w-[unset] !border-none !text-[20px]`}
                       value={item.title}
-                      onChange={(e) => handleCategoriesAdd(item._id, e.target.value)}
+                      onChange={(e) => handleCategoriesAdd(item._id, e.target.value, index)}
                       placeholder="Enter category title..."
                     />
                     <AiOutlineDelete
@@ -100,13 +100,13 @@ const EditCategories = (props: Props) => {
           <div
             className={`${styles.button} !w-[100px] !min-h-[40px] !h-[40px] dark:text-white text-black bg-[#cccccc34] 
             ${
-              areCategoriesUnchanged(data.layout.categories, categories) || isAnyCategoryTitleEmpty(categories)
+              areCategoriesUnchanged(data.layout.category, category) || isAnyCategoryTitleEmpty(category)
                 ? '!cursor-not-allowed'
                 : '!cursor-pointer !bg-[#42d383]'
             }
             !rounded absolute bottom-12 right-12`}
             onClick={
-              areCategoriesUnchanged(data.layout.categories, categories) || isAnyCategoryTitleEmpty(categories)
+              areCategoriesUnchanged(data.layout.category, category) || isAnyCategoryTitleEmpty(category)
                 ? () => null
                 : editCategoriesHandler
             }>

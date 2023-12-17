@@ -9,6 +9,7 @@ import { redirect } from 'next/navigation';
 import ProfileOptions from './ProfileOptions';
 import ProfileInfo from './ProfileInfo';
 import CourseCard from '../Course/CourseCard';
+import { useGetUsersAllCoursesQuery } from '@/redux/features/courses/courseApi';
 // import { useGetUsersAllCoursesQuery } from '@/redux/features/courses/coursesApi';
 
 type Props = {
@@ -21,7 +22,7 @@ const Profile: FC<Props> = ({ user }) => {
   const [logout, setLogout] = useState(false);
   const [courses, setCourses] = useState([]);
   const [active, setActive] = useState(1);
-  // const { data, isLoading } = useGetUsersAllCoursesQuery(undefined, {});
+  const { data, isLoading } = useGetUsersAllCoursesQuery(undefined, {});
 
   const {} = useLogOutQuery(undefined, {
     skip: !logout ? true : false,
@@ -43,14 +44,15 @@ const Profile: FC<Props> = ({ user }) => {
     });
   }
 
-  // useEffect(() => {
-  //   if (data) {
-  //     const filteredCourses = user.courses
-  //       .map((userCourse: any) => data.courses.find((course: any) => course._id === userCourse._id))
-  //       .filter((course: any) => course !== undefined);
-  //     setCourses(filteredCourses);
-  //   }
-  // }, [data]);
+  useEffect(() => {
+    if (data) {
+      // first we check user already purchased this course then show otherwise show null
+      const filteredCourses = user.courses
+        .map((userCourse: any) => data.allCourse.find((course: any) => course._id === userCourse.courseId))
+        .filter((course: any) => course !== undefined);
+      setCourses(filteredCourses);
+    }
+  }, [data]);
 
   return (
     <div className="w-[85%] flex mx-auto">

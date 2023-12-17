@@ -7,6 +7,9 @@ interface FaqItem extends Document {
 interface Category extends Document {
   title: string;
 }
+interface PrivacyPolicy extends Document {
+  title: string;
+}
 export interface ImageBanner extends Document {
   public_id: string;
   url: string;
@@ -15,6 +18,7 @@ interface Layouts extends Document {
   type: string;
   faq: FaqItem[];
   category: Category[];
+  privacyPolicy: PrivacyPolicy[];
   banner: {
     image: ImageBanner;
     title: string;
@@ -27,6 +31,9 @@ export const faqSchema = new Schema<FaqItem>({
   question: { type: String },
 });
 
+export const privacyPolicySchema = new Schema<PrivacyPolicy>({
+  title: { type: String },
+});
 export const categorySchema = new Schema<Category>({
   title: { type: String },
 });
@@ -40,6 +47,7 @@ export const layoutsSchema = new Schema<Layouts>({
   type: { type: String },
   faq: [faqSchema],
   category: [categorySchema],
+  privacyPolicy: [privacyPolicySchema],
   banner: {
     image: ImageBannerSchema,
     title: { type: String },

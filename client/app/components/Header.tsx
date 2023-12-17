@@ -19,6 +19,7 @@ import avatar from '../../public/assets/avatar.png';
 import { useLogOutQuery, useSocialAuthMutation } from '../../redux/features/auth/authApi';
 import toast from 'react-hot-toast';
 import { useLoadUserQuery } from '../../redux/features/api/apiSlice';
+import { IoMdNotificationsOutline } from 'react-icons/io';
 type Props = {
   open: boolean;
   setOpen: (open: boolean) => void; //this for usestate in page.tsx
@@ -132,6 +133,12 @@ const Header: FC<Props> = ({ open, setOpen, activeItem, setRoute, route }) => {
                     onClick={() => setOpen(true)}
                   />
                 )}
+                <div className="relative cursor-pointer m-2" onClick={() => setOpen(!open)}>
+                  <IoMdNotificationsOutline className="text-2xl cursor-pointer dark:text-white text-black" />
+                  <span className="absolute -top-2 -right-2 bg-[#3ccba0] rounded-full w-[20px] h-[20px] text-[12px] flex items-center justify-center text-white">
+                    {/* {notifications && notifications.length} */}1
+                  </span>
+                </div>
               </div>
 
               {/* ------------------second box end*/}
