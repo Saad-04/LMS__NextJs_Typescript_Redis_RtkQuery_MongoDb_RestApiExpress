@@ -76,6 +76,7 @@ const EditCategories = (props: Props) => {
                     <input
                       className={`${styles.input} !w-[unset] !border-none !text-[20px]`}
                       value={item.title}
+                      // here we send three things when function call
                       onChange={(e) => handleCategoriesAdd(item._id, e.target.value, index)}
                       placeholder="Enter category title..."
                     />
@@ -91,12 +92,16 @@ const EditCategories = (props: Props) => {
             })}
           <br />
           <br />
+
+          {/* plus icons for add more title 👇  */}
           <div className="w-full flex justify-center">
             <IoMdAddCircleOutline
               className="dark:text-white text-black text-[25px] cursor-pointer"
               onClick={newCategoriesHandler}
             />
           </div>
+
+          {/* save button 👇 */}
           <div
             className={`${styles.button} !w-[100px] !min-h-[40px] !h-[40px] dark:text-white text-black bg-[#cccccc34] 
             ${

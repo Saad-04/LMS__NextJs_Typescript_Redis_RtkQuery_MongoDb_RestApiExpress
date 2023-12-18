@@ -9,8 +9,9 @@ const About = () => {
   useEffect(() => {
     if (data) {
       setAbout(data.layout?.about);
+      refetch();
     }
-  }, [data]);
+  }, [data, refetch]);
 
   return (
     <div className="text-black dark:text-white">

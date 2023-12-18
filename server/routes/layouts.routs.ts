@@ -17,7 +17,7 @@ layoutsRouter
   .put(isAuthenticated, authorizedRole("admin"), updateLayout);
 layoutsRouter
   .route("/getAllLayout/:type")
-  .get(isAuthenticated, getAllLayout);
+  .get(getAllLayout);
 
 
 export default layoutsRouter;

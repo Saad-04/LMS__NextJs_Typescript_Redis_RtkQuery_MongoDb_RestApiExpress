@@ -10,6 +10,9 @@ interface Category extends Document {
 interface PrivacyPolicy extends Document {
   title: string;
 }
+interface About extends Document {
+  title: string;
+}
 export interface ImageBanner extends Document {
   public_id: string;
   url: string;
@@ -19,6 +22,7 @@ interface Layouts extends Document {
   faq: FaqItem[];
   category: Category[];
   privacyPolicy: PrivacyPolicy[];
+  about: About[];
   banner: {
     image: ImageBanner;
     title: string;
@@ -32,6 +36,9 @@ export const faqSchema = new Schema<FaqItem>({
 });
 
 export const privacyPolicySchema = new Schema<PrivacyPolicy>({
+  title: { type: String },
+});
+export const aboutSchema = new Schema<About>({
   title: { type: String },
 });
 export const categorySchema = new Schema<Category>({
@@ -48,6 +55,7 @@ export const layoutsSchema = new Schema<Layouts>({
   faq: [faqSchema],
   category: [categorySchema],
   privacyPolicy: [privacyPolicySchema],
+  about: [aboutSchema],
   banner: {
     image: ImageBannerSchema,
     title: { type: String },

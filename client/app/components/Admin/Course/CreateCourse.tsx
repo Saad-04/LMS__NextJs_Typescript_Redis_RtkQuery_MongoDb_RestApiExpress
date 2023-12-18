@@ -21,6 +21,9 @@ const CreateCourse = (props: Props) => {
   const [createCourse, { isLoading, isSuccess, error }] = useCreateCourseMutation();
 
   useEffect(() => {
+    if (isLoading) {
+      toast.success('please wait...');
+    }
     if (isSuccess) {
       toast.success('Course created successfully');
       redirect('/admin/courses');
@@ -31,7 +34,7 @@ const CreateCourse = (props: Props) => {
         toast.error(errorMessage.data.message);
       }
     }
-  }, [isSuccess, error]);
+  }, [isSuccess, error, isLoading]);
 
   const [active, setActive] = useState(0); //for next page
   //this for first section 0

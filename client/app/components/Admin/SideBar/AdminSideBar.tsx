@@ -278,7 +278,7 @@ const Sidebar = () => {
               }}>
               <Item
                 title="Courses Analytics"
-                to="/admin/courses-analytics"
+                to="/admin/coursesAnalytics"
                 icon={<BarChartOutlinedIcon />}
                 selected={selected}
                 setSelected={setSelected}
@@ -290,7 +290,7 @@ const Sidebar = () => {
               }}>
               <Item
                 title="Orders Analytics"
-                to="/admin/orders-analytics"
+                to="/admin/orderAnalytics"
                 icon={<MapOutlinedIcon />}
                 selected={selected}
                 setSelected={setSelected}
@@ -302,7 +302,7 @@ const Sidebar = () => {
               }}>
               <Item
                 title="Users Analytics"
-                to="/admin/users-analytics"
+                to="/admin/userAnalytics"
                 icon={<ManageHistoryIcon />}
                 selected={selected}
                 setSelected={setSelected}

@@ -113,9 +113,13 @@ const DashboardHeader: FC<Props> = ({
       {/* notificition sections start here  */}
       <div className="relative cursor-pointer m-2" onClick={() => setOpen(!open)}>
         <IoMdNotificationsOutline className="text-2xl cursor-pointer dark:text-white text-black" />
-        <span className="absolute -top-2 -right-2 bg-[#3ccba0] rounded-full w-[20px] h-[20px] text-[12px] flex items-center justify-center text-white">
-          {notifications && notifications.length}
-        </span>
+        {notifications.length === 0 ? (
+          ''
+        ) : (
+          <span className="absolute -top-2 -right-2 bg-[#3ccba0] rounded-full w-[20px] h-[20px] text-[12px] flex items-center justify-center text-white">
+            {notifications && notifications.length}
+          </span>
+        )}
       </div>
       {open && (
         <div className="w-[300px] 800px:w-[350px] h-[60vh] overflow-y-scroll py-3 px-2 border border-[#ffffff0c] dark:bg-[#121212] bg-[#fff] shadow-xl absolute top-16 z-[101]  rounded ">

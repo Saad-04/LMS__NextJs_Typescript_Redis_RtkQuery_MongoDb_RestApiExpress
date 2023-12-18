@@ -95,7 +95,7 @@ export const createLayout = catchAsyncError(
           })
         );
         await LayoutModel.create({
-          type: "privacyPolicy",
+          type: "about",
           about: aboutItems,
         });
       }

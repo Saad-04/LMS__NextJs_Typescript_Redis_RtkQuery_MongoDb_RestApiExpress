@@ -23,7 +23,7 @@ const FAQ = (props: Props) => {
   return (
     <div>
       <div className="w-[90%] 800px:w-[80%] m-auto">
-        <h1 className={`${styles.title} 800px:text-[40px]`}>Frequently Asked Questions</h1>
+        <h1 className={`${styles.title} 800px:text-[40px] text-gradient`}>Frequently Asked Questions</h1>
         <div className="mt-12">
           <dl className="space-y-8">
             {questions?.map((q) => (
