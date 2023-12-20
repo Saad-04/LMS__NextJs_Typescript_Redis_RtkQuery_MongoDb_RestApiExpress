@@ -46,7 +46,7 @@ export default function OrdersAnalytics({ isDashboard }: Props) {
 
   data &&
     data.orders.last12Months.forEach((item: any) => {
-      analyticsData.push({ name: item.month, uv: item.count });
+      analyticsData.push({ name: item.month, Count: item.count });
     });
 
   return (

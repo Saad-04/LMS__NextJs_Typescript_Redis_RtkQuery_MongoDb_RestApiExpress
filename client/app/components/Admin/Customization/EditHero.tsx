@@ -23,12 +23,12 @@ const EditHero: FC<Props> = (props: Props) => {
       setSubTitle(data?.layout?.banner.subtitle);
       setImage(data?.layout?.banner?.image?.url);
     }
+    if (isLoading) {
+      toast.success('please wait...');
+    }
     if (isSuccess) {
       toast.success('Hero updated successfully!');
       refetch();
-    }
-    if (isLoading) {
-      toast.success('please wait...');
     }
     if (error) {
       if ('data' in error) {

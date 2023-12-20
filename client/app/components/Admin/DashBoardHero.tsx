@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import DashboardHeader from './DashBoardHeader';
-// import DashboardWidgets from '../../components/Admin/Widgets/DashboardWidgets';
+import DashboardWidgets from '../../components/Admin/Widgets/DashBoardWidgets';
 
 type Props = {
   isDashboard?: boolean;
@@ -22,7 +22,7 @@ const DashboardHero = ({ isDashboard, activeRefreshUsers, activeRefreshCourses }
         activeRefreshUsers={activeRefreshUsers}
         // activeRefreshAdminTeam={activeRefreshAdminTeam}
       />
-      {/* {isDashboard && <DashboardWidgets open={open} />} */}
+      {isDashboard && <DashboardWidgets open={open} />}
     </div>
   );
 };

@@ -20,6 +20,8 @@ import {
   ManageHistoryIcon,
   SettingsIcon,
   ExitToAppIcon,
+  PrivacyTipIcon,
+  InfoIcon,
 } from './Icons';
 import avatarDefault from '../../../../public/assets/avatar.png';
 import { useSelector } from 'react-redux';
@@ -244,6 +246,24 @@ const Sidebar = () => {
                 title="Categories"
                 to="/admin/categories"
                 icon={<WysiwygIcon />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+            </div>
+            <div
+              onClick={() => {
+                setIsCollapsed(!isCollapsed);
+              }}>
+              <Item title="About" to="/admin/about" icon={<InfoIcon />} selected={selected} setSelected={setSelected} />
+            </div>
+            <div
+              onClick={() => {
+                setIsCollapsed(!isCollapsed);
+              }}>
+              <Item
+                title="Privacy Policy"
+                to="/admin/privacyPolicy"
+                icon={<PrivacyTipIcon />}
                 selected={selected}
                 setSelected={setSelected}
               />
