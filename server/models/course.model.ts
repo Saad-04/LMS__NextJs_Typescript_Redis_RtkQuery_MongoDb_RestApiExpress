@@ -19,7 +19,7 @@ interface ILink extends Document {
 }
 
 export interface ICourseData extends Document {
-  admin: object;
+  // admin: object;
   title: string;
   description: string;
   videoUrl: string;
@@ -34,7 +34,7 @@ export interface ICourseData extends Document {
 }
 
 export interface ICourse extends Document {
-  admin: Iuser;
+  // admin: Iuser;
   name: string;
   description: string;
   categories: string;
@@ -102,7 +102,7 @@ export const courseDataSchema = new Schema<ICourseData>({
 });
 export const courseSchema = new Schema<ICourse>(
   {
-    admin: Object,
+    // admin: Object,
     name: {
       type: String,
       required: true,
@@ -160,3 +160,8 @@ export const courseSchema = new Schema<ICourse>(
 
 const CourseModel: Model<ICourse> = mongoose.model("Course", courseSchema);
 export default CourseModel;
+
+
+
+
+

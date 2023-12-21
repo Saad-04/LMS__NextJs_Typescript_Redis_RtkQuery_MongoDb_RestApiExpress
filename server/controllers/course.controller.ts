@@ -13,7 +13,6 @@ import sendEmail from "../utils/sendMail";
 import ejs from "ejs";
 import path from "path";
 import NotificationModel from "../models/notificaton.model";
-import userModel from "../models/user.models";
 import axios from "axios";
 // only admin can create course
 export const createCourse = catchAsyncError(
@@ -193,51 +192,51 @@ interface AddLike {
   contentId: string;
 }
 // here user like the video
-export const likeCourseContent = catchAsyncError(
-  async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const { contentId } = req.body as AddLike;
+// export const likeCourseContent = catchAsyncError(
+//   async (req: Request, res: Response, next: NextFunction) => {
+//     try {
+//       const { contentId } = req.body as AddLike;
 
-      const courseId = req.params.id;
+//       const courseId = req.params.id;
 
-      const course = await CourseModel.findById(courseId);
+//       const course = await CourseModel.findById(courseId);
 
-      const courseContent = course?.courseData.find(
-        (
-          item: any //this is single video content
-        ) => item._id.equals(contentId)
-      );
+//       const courseContent = course?.courseData.find(
+//         (
+//           item: any //this is single video content
+//         ) => item._id.equals(contentId)
+//       );
 
-      if (!courseContent) {
-        return next(new ErrorHandler(" content not found ", 404));
-      }
-      const user: any = {
-        user: req.user,
-      };
+//       if (!courseContent) {
+//         return next(new ErrorHandler(" content not found ", 404));
+//       }
+//       const user: any = {
+//         user: req.user,
+//       };
 
-      const likeExist = courseContent.likes.some(
-        (item: any) => item._id === req.user?._id //herer we check is user already give a like ?
-      );
+//       const likeExist = courseContent.likes.some(
+//         (item: any) => item._id === req.user?._id //herer we check is user already give a like ?
+//       );
 
-      if (likeExist) {
-        courseContent.likes = courseContent.likes.filter(
-          (item) => item._id !== req.user?._id //if already like exist then remove it
-        );
-      } else {
-        courseContent.likes.push(user.user); //here we push req.user in array
-      }
+//       if (likeExist) {
+//         courseContent.likes = courseContent.likes.filter(
+//           (item) => item._id !== req.user?._id //if already like exist then remove it
+//         );
+//       } else {
+//         courseContent.likes.push(user.user); //here we push req.user in array
+//       }
 
-      await course?.save();
+//       await course?.save();
 
-      res.status(201).json({
-        success: true,
-        course,
-      });
-    } catch (error: any) {
-      return next(new ErrorHandler(error.message, 500));
-    }
-  }
-);
+//       res.status(201).json({
+//         success: true,
+//         course,
+//       });
+//     } catch (error: any) {
+//       return next(new ErrorHandler(error.message, 500));
+//     }
+//   }
+// );
 interface addQuestions extends Document {
   courseId: string;
   contentId: string;
@@ -322,7 +321,7 @@ export const answerReplyOnVideoQuestion = catchAsyncError(
       const newAnswer: any = {
         user: req.user,
         answer,
-        likes: [],
+        // likes: [],
       };
 
       question.commentReplies.push(newAnswer);
@@ -412,7 +411,7 @@ export const addReview = catchAsyncError(
         user: req.user,
         reviewComment: review,
         rating,
-        likes: [],
+        // likes: [],
       };
 
       course?.reviews.push(reviewData);
@@ -475,7 +474,7 @@ export const adminReplyReview = catchAsyncError(
       const replyData: any = {
         user: req.user,
         comment: reply,
-        likes: [],
+        // likes: [],
       };
 
       if (!review.commentReplies) {

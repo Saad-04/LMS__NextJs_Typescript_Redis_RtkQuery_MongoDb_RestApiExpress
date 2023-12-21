@@ -8,7 +8,7 @@ import CreateCourse from '@/app/components/Admin/Course/CreateCourse';
 type Props = {};
 
 const page = (props: Props) => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState<boolean>(false);
 
   return (
     <div>

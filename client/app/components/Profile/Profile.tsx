@@ -9,7 +9,7 @@ import { redirect } from 'next/navigation';
 import ProfileOptions from './ProfileOptions';
 import ProfileInfo from './ProfileInfo';
 import CourseCard from '../Course/CourseCard';
-import { useGetUsersAllCoursesQuery } from '@/redux/features/courses/courseApi';
+import { useGetAllCoursesQuery } from '@/redux/features/courses/courseApi';
 // import { useGetUsersAllCoursesQuery } from '@/redux/features/courses/coursesApi';
 
 type Props = {
@@ -22,7 +22,7 @@ const Profile: FC<Props> = ({ user }) => {
   const [logout, setLogout] = useState(false);
   const [courses, setCourses] = useState([]);
   const [active, setActive] = useState(1);
-  const { data, isLoading } = useGetUsersAllCoursesQuery(undefined, {});
+  const { data, isLoading } = useGetAllCoursesQuery(undefined, {});
 
   const {} = useLogOutQuery(undefined, {
     skip: !logout ? true : false,

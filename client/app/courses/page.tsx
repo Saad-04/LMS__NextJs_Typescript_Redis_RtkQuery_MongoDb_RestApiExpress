@@ -1,5 +1,5 @@
 'use client';
-import { useGetUsersAllCoursesQuery } from '../../redux/features/courses/courseApi';
+import { useGetAllCoursesQuery } from '../../redux/features/courses/courseApi';
 import { useGetHeroDataQuery } from '../../redux/features/layouts/layoutApi';
 import { useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
@@ -10,12 +10,14 @@ import { styles } from '../Styles/style';
 import CourseCard from '../components/Course/CourseCard';
 import Footer from '../components/Footer';
 
-type Props = {};
+type Props = {
+  coursePage?: boolean;
+};
 
-const Page = (props: Props) => {
+const Courses = ({}: Props) => {
   const searchParams = useSearchParams();
   const search = searchParams?.get('title');
-  const { data, isLoading } = useGetUsersAllCoursesQuery(undefined, {});
+  const { data, isLoading } = useGetAllCoursesQuery(undefined, {});
   const { data: categoriesData } = useGetHeroDataQuery('category', {});
   const [route, setRoute] = useState('Login');
   const [open, setOpen] = useState(false);
@@ -53,7 +55,7 @@ const Page = (props: Props) => {
             <div className="w-full flex items-center flex-wrap">
               <div
                 className={`h-[35px] ${
-                  category === 'All' ? 'bg-[crimson]' : 'bg-[#5050cb]'
+                  category === 'All' ? 'bg-[crimson]' : 'bg-gray-600'
                 } m-3 px-3 rounded-[30px] flex items-center justify-center font-Poppins cursor-pointer`}
                 onClick={() => setCategory('All')}>
                 All
@@ -64,7 +66,7 @@ const Page = (props: Props) => {
                   <div key={index}>
                     <div
                       className={`h-[35px] ${
-                        category === item.title ? 'bg-[crimson]' : 'bg-[#5050cb]'
+                        category === item.title ? 'bg-[crimson]' : 'bg-gray-600 text-white'
                       } m-3 px-3 rounded-[30px] flex items-center justify-center font-Poppins cursor-pointer`}
                       onClick={() => setCategory(item.title)}>
                       {item.title}
@@ -72,6 +74,7 @@ const Page = (props: Props) => {
                   </div>
                 ))}
             </div>
+
             {/* if course is empty then show this text  */}
             {courses && courses.length === 0 && (
               <p className={`${styles.label} justify-center min-h-[50vh] flex items-center`}>
@@ -93,4 +96,4 @@ const Page = (props: Props) => {
   );
 };
 
-export default Page;
+export default Courses;

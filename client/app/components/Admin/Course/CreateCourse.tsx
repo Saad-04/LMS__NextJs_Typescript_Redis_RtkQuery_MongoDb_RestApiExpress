@@ -14,6 +14,7 @@ import CourseData from './CourseData';
 import CourseContent from './CourseContent';
 import CoursePreview from './CoursePreview';
 import { useCreateCourseMutation } from '@/redux/features/courses/courseApi';
+import Loader from '../../Loader/Loader';
 
 type Props = {};
 
@@ -161,6 +162,7 @@ const CreateCourse = (props: Props) => {
             setActive={setActive}
             courseData={courseData}
             handleCourseCreate={handleCourseCreate}
+            loading={isLoading}
           />
         )}
       </div>

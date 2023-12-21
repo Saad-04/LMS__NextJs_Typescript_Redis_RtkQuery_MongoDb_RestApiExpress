@@ -3,6 +3,10 @@ import { FC, useState } from 'react';
 import Header from './components/Header';
 import Heading from './utils/Heading';
 import Hero from './components/Routes/Hero';
+import Courses from './components/Routes/Courses';
+import Reviews from './components/Routes/Reviews';
+import FAQ from './components/Faq/FAQ';
+import Footer from './components/Footer';
 
 interface Props {}
 
@@ -26,11 +30,11 @@ const Page: FC<Props> = (props) => {
         route={route}
       />
       <Hero />
-
-      {/* <Courses />
+      {/* these courses are not main courses page  */}
+      <Courses />
       <Reviews />
       <FAQ />
-      <Footer /> */}
+      <Footer />
     </div>
   );
 };
