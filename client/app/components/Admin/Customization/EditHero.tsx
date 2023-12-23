@@ -36,7 +36,7 @@ const EditHero: FC<Props> = (props: Props) => {
         toast.error(errorData?.data?.message);
       }
     }
-  }, [data, isSuccess, error]);
+  }, [data, isSuccess, error, isLoading]);
 
   // again update input file to update image
   const handleUpdate = (e: any) => {

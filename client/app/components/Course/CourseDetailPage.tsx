@@ -1,3 +1,4 @@
+'use client ';
 import { useGetCourseDetailsQuery } from '../../../redux/features/courses/courseApi';
 import React, { useEffect, useState } from 'react';
 import Loader from '../Loader/Loader';
@@ -6,7 +7,7 @@ import Header from '../Header';
 import Footer from '../Footer';
 import CourseDetails from './CourseDetail';
 // import { useCreatePaymentIntentMutation, useGetStripePublishablekeyQuery } from '@/redux/features/orders/ordersApi';
-// import { loadStripe } from '@stripe/stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 import { useLoadUserQuery } from '@/redux/features/api/apiSlice';
 
 type Props = {
@@ -14,25 +15,26 @@ type Props = {
 };
 
 const CourseDetailsPage = ({ id }: Props) => {
-  const [route, setRoute] = useState('Login');
+  const [route, setRoute] = useState('');
   const [open, setOpen] = useState(false);
-  const { data, isLoading } = useGetCourseDetailsQuery(id);
+  const { data, isLoading } = useGetCourseDetailsQuery(id); //this weil return full single course data every thing about course
+  //
   // const { data: config } = useGetStripePublishablekeyQuery({});
   // const [createPaymentIntent, { data: paymentIntentData }] = useCreatePaymentIntentMutation();
   const { data: userData } = useLoadUserQuery(undefined, {});
   const [stripePromise, setStripePromise] = useState<any>(null);
   const [clientSecret, setClientSecret] = useState('');
 
-  // useEffect(() => {
-  //   if (config) {
-  //     const publishablekey = config?.publishablekey;
-  //     setStripePromise(loadStripe(publishablekey));
-  //   }
-  //   if (data && userData?.user) {
-  //     const amount = Math.round(data.course.price * 100);
-  //     createPaymentIntent(amount);
-  //   }
-  // }, [config, data, userData]);
+  useEffect(() => {
+    // if (config) {
+    //   const publishablekey = config?.publishablekey;
+    //   setStripePromise(loadStripe(publishablekey));
+    // }
+    if (data && userData?.user) {
+      const amount = Math.round(data.course.price * 100);
+      // createPaymentIntent(amount);
+    }
+  }, [data, userData]);
 
   // useEffect(() => {
   //   if (paymentIntentData) {
@@ -54,15 +56,15 @@ const CourseDetailsPage = ({ id }: Props) => {
             keywords={data?.course?.tags}
           />
           <Header route={route} setRoute={setRoute} open={open} setOpen={setOpen} activeItem={1} />
-          {stripePromise && (
-            <CourseDetails
-              data={data.course}
-              stripePromise={stripePromise}
-              clientSecret={clientSecret}
-              setRoute={setRoute}
-              setOpen={setOpen}
-            />
-          )}
+          {/* {stripePromise && ( */}
+          <CourseDetails
+            data={data.course}
+            stripePromise={stripePromise}
+            clientSecret={clientSecret}
+            setRoute={setRoute}
+            setOpen={setOpen}
+          />
+
           <Footer />
         </div>
       )}

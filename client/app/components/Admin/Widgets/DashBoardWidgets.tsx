@@ -83,12 +83,21 @@ const DashboardWidgets: FC<Props> = ({ open }) => {
 
   return (
     <div className="mt-[30px] min-h-screen">
-      <div className=" flex flex-col 800px:grid 800px:grid-cols-[75%,25%]">
+      <div className=" flex flex-col 800px:grid 800px:grid-cols-[100%]  [75%,25%]">
+        {/* \ */}
+        {/*  */}
+        {/* first container down  */}
         <div className="800px:p-8 pb-5">
           <UserAnalytics isDashboard={true} />
         </div>
-
+        {/* first container end up  */}
+        {/*  */}
+        {/*  */}
+        {/* second container down */}
         <div className="800px:pt-[80px] pr-8 ">
+          {/*  */}
+          {/*  */}
+          {/* firt sales obtain container  */}
           <div className="w-[90%] 800px:w-full dark:bg-[#111C43] rounded-sm shadow">
             <div className="flex items-center p-5 justify-between">
               <div className="">
@@ -111,7 +120,7 @@ const DashboardWidgets: FC<Props> = ({ open }) => {
               </div>
             </div>
           </div>
-
+          {/* second new users  container  */}
           <div className="w-[90%] 800px:w-full dark:bg-[#111C43] rounded-sm shadow my-8">
             <div className="flex items-center p-5 justify-between">
               <div className="">
@@ -132,7 +141,13 @@ const DashboardWidgets: FC<Props> = ({ open }) => {
               </div>
             </div>
           </div>
+          {/*  */}
+          {/*  */}
         </div>
+        {/* second container end up  */}
+        {/*  */}
+        {/*  */}
+        {/*  */}
       </div>
       {/* order analytics board */}
       <div className="grid grid-cols-[100%] mt-[-20px]">

@@ -1,5 +1,5 @@
 // import Ratings from '@/app/utils/Ratings';
-import Image from 'next/image';
+// import Image from 'next/image';
 import Link from 'next/link';
 import React, { FC } from 'react';
 import { AiOutlineUnorderedList } from 'react-icons/ai';
