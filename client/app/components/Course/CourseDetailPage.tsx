@@ -15,7 +15,7 @@ type Props = {
 };
 
 const CourseDetailsPage = ({ id }: Props) => {
-  const [route, setRoute] = useState('');
+  const [route, setRoute] = useState('Login');
   const [open, setOpen] = useState(false);
   const { data, isLoading } = useGetCourseDetailsQuery(id); //this weil return full single course data every thing about course
   //

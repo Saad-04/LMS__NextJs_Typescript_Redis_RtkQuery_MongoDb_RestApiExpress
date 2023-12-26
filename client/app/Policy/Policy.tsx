@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { styles } from '../Styles/style';
 import { useGetHeroDataQuery } from '../../redux/features/layouts/layoutApi';
+import Loader from '../components/Loader/Loader';
 
 type Props = {};
 
@@ -20,19 +21,23 @@ const Policy = (props: Props) => {
         <h1 className={`${styles.title} !text-start pt-2 text-gradient text-purple-800`}>
           Platform Terms and Condition
         </h1>
-        <ul style={{ listStyle: 'unset', marginLeft: '15px' }}>
-          {policy &&
-            policy.map((policy) => {
-              return (
-                <>
-                  <p className="py-2 ml-[-15px] text-[16px] font-Poppins leading-8 whitespace-pre-line">
-                    {policy.title}
-                  </p>
-                  <br />
-                </>
-              );
-            })}
-        </ul>
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <ul style={{ listStyle: 'unset', marginLeft: '15px' }}>
+            {policy &&
+              policy.map((policy) => {
+                return (
+                  <>
+                    <p className="py-2 ml-[-15px] text-[16px] font-Poppins leading-8 whitespace-pre-line">
+                      {policy.title}
+                    </p>
+                    <br />
+                  </>
+                );
+              })}
+          </ul>
+        )}
       </div>
     </div>
   );

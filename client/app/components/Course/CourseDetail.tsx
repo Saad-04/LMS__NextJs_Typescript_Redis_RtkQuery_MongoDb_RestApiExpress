@@ -40,7 +40,7 @@ const CourseDetails = ({ data, setOpen: openAuthModal, stripePromise, clientSecr
     if (user) {
       setOpen(true);
     } else {
-      // setRoute('Login');
+      setRoute('Login');
       openAuthModal(true);
     }
   };
@@ -153,7 +153,7 @@ const CourseDetails = ({ data, setOpen: openAuthModal, stripePromise, clientSecr
                   </div>
                   {/* comment commentReplies section start here  */}
                   {item.commentReplies.map((i: any, index: number) => (
-                    <div className="w-full flex 800px:ml-16 my-5" key={index}>
+                    <div className="w-full flex 800px:ml-16 my-5 text-white" key={index}>
                       <div className="w-[50px] h-[50px]">
                         <Image
                           src={
@@ -181,7 +181,9 @@ const CourseDetails = ({ data, setOpen: openAuthModal, stripePromise, clientSecr
               ))}
             </div>
           </div>
-
+          {/*  */}
+          {/*  */}
+          {/* right side section for demo video and payment button or enrole course  */}
           <div className="w-full 800px:w-[35%] relative">
             <div className="sticky top-[100px] left-0 z-50 w-full">
               <CoursePlayer videoUrl={data?.demoUrl} title={data?.title} />

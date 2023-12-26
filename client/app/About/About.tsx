@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { styles } from '../Styles/style';
 import { useGetHeroDataQuery } from '@/redux/features/layouts/layoutApi';
+import Loader from '../components/Loader/Loader';
 
 const About = () => {
   const { data, refetch, isLoading, isSuccess } = useGetHeroDataQuery('about', {});
@@ -21,26 +22,30 @@ const About = () => {
       </h1>
 
       <br />
-      <div className="w-[95%] 800px:w-[85%] m-auto">
-        {about &&
-          about.map((about) => {
-            return (
-              <>
-                <p className="text-[18px] font-Poppins">
-                  {about.title}
-                  <br />
-                  <br />
-                </p>
-              </>
-            );
-          })}
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <div className="w-[95%] 800px:w-[85%] m-auto">
+          {about &&
+            about.map((about) => {
+              return (
+                <>
+                  <p className="text-[18px] font-Poppins">
+                    {about.title}
+                    <br />
+                    <br />
+                  </p>
+                </>
+              );
+            })}
 
-        {/* <span className="text-[22px]">Shahriarsajeeb&apos;s</span>
+          {/* <span className="text-[22px]">Shahriarsajeeb&apos;s</span>
         <h5 className="text-[18px] font-Poppins">Founder and CEO of Becodemy</h5> */}
-        <br />
-        <br />
-        <br />
-      </div>
+          <br />
+          <br />
+          <br />
+        </div>
+      )}
     </div>
   );
 };
