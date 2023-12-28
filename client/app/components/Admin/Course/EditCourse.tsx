@@ -8,6 +8,7 @@ import CoursePreview from './CoursePreview';
 import { useEditCourseMutation, useGetAdminAllCoursesQuery } from '../../../../redux/features/courses/courseApi';
 import { toast } from 'react-hot-toast';
 import { redirect } from 'next/navigation';
+import Loader from '../../Loader/Loader';
 
 type Props = {
   id: string;
@@ -130,7 +131,7 @@ const EditCourse: FC<Props> = ({ id }) => {
     setCourseData(data);
   };
 
-  const handleCourseCreate = async (e: any) => {
+  const handleCourseUpdate = async (e: any) => {
     const data = courseData;
     await editCourse({ id: editCourseData?._id, data });
   };
@@ -169,13 +170,19 @@ const EditCourse: FC<Props> = ({ id }) => {
         )}
 
         {active === 3 && (
-          <CoursePreview
-            active={active}
-            setActive={setActive}
-            courseData={courseData}
-            handleCourseCreate={handleCourseCreate}
-            isEdit={true}
-          />
+          <>
+            {isLoading ? (
+              <Loader />
+            ) : (
+              <CoursePreview
+                active={active}
+                setActive={setActive}
+                courseData={courseData}
+                handleCourseUpdate={handleCourseUpdate}
+                isEdit={true}
+              />
+            )}
+          </>
         )}
       </div>
       <div className="w-[20%] mt-[100px] h-screen fixed z-[-1] top-18 right-0">

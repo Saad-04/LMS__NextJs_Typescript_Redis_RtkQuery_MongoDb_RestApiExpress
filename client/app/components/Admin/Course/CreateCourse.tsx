@@ -157,13 +157,18 @@ const CreateCourse = (props: Props) => {
         )}
 
         {active === 3 && (
-          <CoursePreview
-            active={active}
-            setActive={setActive}
-            courseData={courseData}
-            handleCourseCreate={handleCourseCreate}
-            loading={isLoading}
-          />
+          <>
+            {isLoading ? (
+              <Loader />
+            ) : (
+              <CoursePreview
+                active={active}
+                setActive={setActive}
+                courseData={courseData}
+                handleCourseCreate={handleCourseCreate}
+              />
+            )}
+          </>
         )}
       </div>
       <div className=" w-[10%] 800px:w-[20%] mt-[100px] h-screen fixed z-[-1] top-18 right-0">

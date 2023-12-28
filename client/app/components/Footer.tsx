@@ -59,21 +59,21 @@ const Footer = (props: Props) => {
             <ul className="space-y-4">
               <li>
                 <Link
-                  href="https://www.youtube.com/channel/UCHz6Sne9splmvm-q2w1_HWQ"
+                  href="https://www.youtube.com/@meta"
                   className="text-base text-black dark:text-gray-300 dark:hover:text-[#45CBA0]">
                   Youtube
                 </Link>
               </li>
               <li>
                 <Link
-                  href="https://www.instagram.com/shahriar_sajeeb_/"
+                  href="https://www.instagram.com/saadali.6/"
                   className="text-base text-black dark:text-gray-300 dark:hover:text-[#45CBA0]">
                   Instagram
                 </Link>
               </li>
               <li>
                 <Link
-                  href="https://www.github.com/shahriarsajeeb"
+                  href="https://github.com/Saad-04"
                   className="text-base text-black dark:text-gray-300 dark:hover:text-[#45CBA0]">
                   github
                 </Link>

@@ -94,7 +94,7 @@ const CourseDetails = ({ data, setOpen: openAuthModal, stripePromise, clientSecr
             <div>
               <h1 className="text-[25px] font-Poppins font-[600] text-black dark:text-white">Course Overview</h1>
               {/* here we send full coursedata array in data props below  */}
-              {/* <CourseContentList data={data?.courseData} isDemo={true} /> */}
+              <CourseContentList data={data?.courseData} isDemo={true} />
             </div>
             <br />
             <br />
@@ -125,6 +125,7 @@ const CourseDetails = ({ data, setOpen: openAuthModal, stripePromise, clientSecr
                 <div className="w-full pb-4" key={index}>
                   <div className="flex">
                     {/* here we show image of person  who give remove */}
+                    {/* this is image div  */}
                     <div className="w-[50px] h-[50px]">
                       <Image
                         src={
@@ -138,22 +139,24 @@ const CourseDetails = ({ data, setOpen: openAuthModal, stripePromise, clientSecr
                         className="w-[50px] h-[50px] rounded-full object-cover"
                       />
                     </div>
-                    <div className="hidden 800px:block pl-2">
+
+                    <div className=" 800px:block pl-2">
                       <div className="flex items-center">
                         <h5 className="text-[18px] pr-2 text-black dark:text-white">{item.user.name}</h5>
                         <Ratings rating={item.rating} />
                       </div>
-                      <p className="text-black dark:text-white">{item.comment}</p>
+                      <p className="text-black dark:text-white">{item.reviewComment}</p>
                       <small className="text-[#000000d1] dark:text-[#ffffff83]">{format(item.createdAt)} •</small>
                     </div>
-                    <div className="pl-2 flex 800px:hidden items-center">
+                    {/* <div className="pl-2 flex 800px:hidden items-center">
                       <h5 className="text-[18px] pr-2 text-black dark:text-white">{item.user.name}</h5>
                       <Ratings rating={item.rating} />
-                    </div>
+                    </div> */}
                   </div>
+                  {/* review and here and start review reply  */}
                   {/* comment commentReplies section start here  */}
                   {item.commentReplies.map((i: any, index: number) => (
-                    <div className="w-full flex 800px:ml-16 my-5 text-white" key={index}>
+                    <div className="w-full flex 800px:ml-16 my-5 dark:text-white" key={index}>
                       <div className="w-[50px] h-[50px]">
                         <Image
                           src={
@@ -167,6 +170,7 @@ const CourseDetails = ({ data, setOpen: openAuthModal, stripePromise, clientSecr
                           className="w-[50px] h-[50px] rounded-full object-cover"
                         />
                       </div>
+
                       <div className="pl-2">
                         <div className="flex items-center">
                           <h5 className="text-[20px]">{i.user.name}</h5>{' '}

@@ -9,12 +9,19 @@ type Props = {
   active: number;
   setActive: (active: number) => void;
   courseData: any;
+  handleCourseUpdate: any;
   handleCourseCreate: any;
   isEdit?: boolean;
-  loading: any;
 };
 
-const CoursePreview: FC<Props> = ({ loading, courseData, handleCourseCreate, setActive, active, isEdit }) => {
+const CoursePreview: FC<Props> = ({
+  courseData,
+  handleCourseUpdate,
+  handleCourseCreate,
+  setActive,
+  active,
+  isEdit,
+}) => {
   const dicountPercentenge = ((courseData?.estimatedPrice - courseData?.price) / courseData?.estimatedPrice) * 100;
 
   const discountPercentengePrice = dicountPercentenge.toFixed(0);
@@ -23,13 +30,17 @@ const CoursePreview: FC<Props> = ({ loading, courseData, handleCourseCreate, set
     setActive(active - 1);
   };
 
-  const createCourse = () => {
-    handleCourseCreate();
-  };
+  if (isEdit === true) {
+    var createCourse = () => {
+      handleCourseUpdate();
+    };
+  } else {
+    var createCourse = () => {
+      handleCourseCreate();
+    };
+  }
 
-  return loading ? (
-    <Loader />
-  ) : (
+  return (
     <div className="w-[90%] m-auto py-5 mb-5 text-black dark:text-white">
       <div className="w-full relative">
         <div className="w-full mt-10">

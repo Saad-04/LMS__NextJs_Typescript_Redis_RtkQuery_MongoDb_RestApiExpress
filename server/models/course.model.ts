@@ -67,7 +67,8 @@ interface IReview extends Document {
   rating?: number;
   // likes?: Iuser[];
   reviewComment: string;
-  commentReplies?: IComment[]; //only admin can reply this comment
+  commentReplies?: [IComment]; //only admin can reply this comment
+  timestamps: boolean
 }
 const reviewSchema = new Schema<IReview>(
   {
@@ -77,8 +78,9 @@ const reviewSchema = new Schema<IReview>(
       type: Number,
       default: 0,
     },
-    commentReplies: [Object],
+    commentReplies: [commentSchema],
     // likes: [Object],
+
   },
   { timestamps: true }
 );
