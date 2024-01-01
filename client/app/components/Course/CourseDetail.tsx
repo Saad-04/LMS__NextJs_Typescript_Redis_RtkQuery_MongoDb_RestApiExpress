@@ -203,6 +203,7 @@ const CourseDetails = ({ data, setOpen: openAuthModal, stripePromise, clientSecr
                 <h4 className="pl-5 pt-4 text-[22px] text-black dark:text-white">{discountPercentengePrice}% Off</h4>
               </div>
               {/* second box  */}
+              {/* here we redirect to course access page  */}
               <div className="flex items-center">
                 {isPurchased ? (
                   <Link
