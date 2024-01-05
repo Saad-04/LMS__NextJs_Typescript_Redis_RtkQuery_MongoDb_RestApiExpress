@@ -148,10 +148,10 @@ const CourseDetails = ({ data, setOpen: openAuthModal, stripePromise, clientSecr
                       <p className="text-black dark:text-white">{item.reviewComment}</p>
                       <small className="text-[#000000d1] dark:text-[#ffffff83]">{format(item.createdAt)} •</small>
                     </div>
-                    {/* <div className="pl-2 flex 800px:hidden items-center">
+                    <div className="pl-2 flex 800px:hidden items-center">
                       <h5 className="text-[18px] pr-2 text-black dark:text-white">{item.user.name}</h5>
                       <Ratings rating={item.rating} />
-                    </div> */}
+                    </div>
                   </div>
                   {/* review and here and start review reply  */}
                   {/* comment commentReplies section start here  */}

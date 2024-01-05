@@ -20,6 +20,10 @@ import { useLogOutQuery, useSocialAuthMutation } from '../../redux/features/auth
 import toast from 'react-hot-toast';
 import { useLoadUserQuery } from '../../redux/features/api/apiSlice';
 import { IoMdNotificationsOutline } from 'react-icons/io';
+import { useGetCompanyNameQuery } from '@/redux/features/company/companyApi';
+// Using react-loading-skeleton
+import Skeleton from 'react-loading-skeleton';
+import ContentLoader, { Facebook } from 'react-content-loader';
 type Props = {
   open: boolean;
   setOpen: (open: boolean) => void; //this for usestate in page.tsx
@@ -32,6 +36,13 @@ const Header: FC<Props> = ({ open, setOpen, activeItem, setRoute, route }) => {
   const [active, setActive] = useState(false);
   const [openSidebar, setOpenSidebar] = useState(false);
   const { data: userData, isLoading, refetch } = useLoadUserQuery(undefined, {});
+  //
+  const {
+    data: companyData,
+    isLoading: companyLoading,
+    refetch: companyRefetch,
+  } = useGetCompanyNameQuery({ refetchOnMountOrArgChange: true });
+  //
   const { data } = useSession();
   const [socialAuth, { isSuccess, error }] = useSocialAuthMutation();
   const { user } = useSelector((state: any) => {
@@ -44,6 +55,7 @@ const Header: FC<Props> = ({ open, setOpen, activeItem, setRoute, route }) => {
 
   useEffect(() => {
     //before user data is loaded
+
     if (!isLoading) {
       //before user data
       if (!userData) {
@@ -66,7 +78,7 @@ const Header: FC<Props> = ({ open, setOpen, activeItem, setRoute, route }) => {
         setLogout(true);
       }
     }
-  }, [data, userData, isLoading]);
+  }, [data, userData, isLoading, companyData]);
   if (typeof window !== 'undefined') {
     window.addEventListener('scroll', () => {
       if (window.scrollY > 85) {
@@ -100,7 +112,7 @@ const Header: FC<Props> = ({ open, setOpen, activeItem, setRoute, route }) => {
               {/* --------------first box */}
               <div>
                 <Link href={'/'} className={`text-[25px] font-Poppins font-[500] text-black dark:text-white`}>
-                  ELearning
+                  {companyLoading ? <ContentLoader viewBox="0 0 380 70" /> : companyData?.company?.companyName}
                 </Link>
               </div>
               {/* ------------------second box */}

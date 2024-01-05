@@ -4,6 +4,7 @@ import ErrorHandler from "../utils/errorHandler";
 import LayoutModel, { ImageBanner } from "../models/layout.model";
 import cloudinary from "cloudinary";
 import { isNewExpression } from "typescript";
+import { createCourseCollection } from "../services/service.course";
 
 interface LayoutType extends Document {
   type: string;

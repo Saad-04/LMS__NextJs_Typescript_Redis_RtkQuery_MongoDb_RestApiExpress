@@ -8,6 +8,7 @@ import orderRouter from './routes/order.routs';
 import notificationRouter from './routes/notification.routs';
 import analyticsRouter from './routes/analytics.routs';
 import layoutsRouter from './routes/layouts.routs';
+import companyNameRouter from './routes/company.rout';
 export const app = express();
 require('dotenv').config();
 // body-parser
@@ -23,7 +24,7 @@ app.use(
 );
 
 // userRouter;
-app.use('/api/v1', userRouter, courseRouter, orderRouter, notificationRouter, analyticsRouter, layoutsRouter);
+app.use('/api/v1', userRouter, courseRouter, orderRouter, companyNameRouter, notificationRouter, analyticsRouter, layoutsRouter);
 
 // rout for not found routs
 app.all('*', (req: Request, res: Response, next: NextFunction) => {
