@@ -18,8 +18,8 @@ export const companyNameApi = apiSlice.injectEndpoints({
       }),
     }),
     updateCompanyName: builder.mutation({
-      query: (newName) => ({
-        url: "updateCompanyName",
+      query: ({ newName, id }: any) => ({
+        url: `updateCompanyName/${id}`,
         method: "PUT",
         body: newName,
         credentials: "include" as const,

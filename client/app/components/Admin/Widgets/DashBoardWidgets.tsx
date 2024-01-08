@@ -94,9 +94,10 @@ const DashboardWidgets: FC<Props> = ({ open }) => {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-
-    updateCompanyName(inputValue);
+    const id = companyData?.company._id;
+    updateCompanyName({ newName: inputValue, id: id });
   };
+  // \
   return (
     <div className="mt-[30px] min-h-screen">
       <div className=" flex flex-col 800px:grid 800px:grid-cols-[100%]  [75%,25%]">

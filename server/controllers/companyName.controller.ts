@@ -35,15 +35,18 @@ export const getCompanyName = catchAsyncError(
   }
 );
 interface NewName {
-  newName: string
+  newName: string,
 }
 export const updateCompanyName = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       let { newName } = req.body as NewName
-      const company = await CompanyNameModel.find();
-      company[0].companyName = newName
-      await company?.save()
+      const id = req.params.id
+      const updatedCompany = await CompanyNameModel.findByIdAndUpdate(id, { companyName: newName },
+        { new: true })
+      // 
+      const company = await CompanyNameModel.find()
+
       res.status(200).json({
         success: true,
         company: company[0],

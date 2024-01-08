@@ -7,7 +7,7 @@ import Courses from './components/Routes/Courses';
 import Reviews from './components/Routes/Reviews';
 import FAQ from './components/Faq/FAQ';
 import Footer from './components/Footer';
-
+// add bootstrap css
 interface Props {}
 
 const Page: FC<Props> = (props) => {
@@ -38,4 +38,5 @@ const Page: FC<Props> = (props) => {
     </div>
   );
 };
+
 export default Page;

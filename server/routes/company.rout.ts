@@ -17,7 +17,7 @@ companyNameRouter
   .route("/getCompanyName")
   .get(getCompanyName);
 companyNameRouter
-  .route("/updateCompanyName")
+  .route("/updateCompanyName/:id")
   .put(isAuthenticated, authorizedRole("admin"), updateCompanyName);
 
 
